@@ -1,0 +1,18 @@
+name: App Build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  app-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # Checkout your repository
+
+      - name: Run docker commands
+        run: |
+          docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
+          docker run -p 80:80 test-app &
+          sleep 5
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
