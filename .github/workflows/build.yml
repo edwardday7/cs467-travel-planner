@@ -15,4 +15,4 @@ jobs:
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
           docker run -p 80:80 test-app &
           sleep 5
-          curl http://localhost:80/healthz
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:80/healthz | grep -q 200
