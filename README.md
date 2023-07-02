@@ -14,6 +14,8 @@ It is recommended to use a [virtual environment](https://realpython.com/python-v
 
 `pip install -r requirements.txt`
 
+`npm install bootstrap@5.3.0`
+
 ### Running Locally
 
 Run application:
