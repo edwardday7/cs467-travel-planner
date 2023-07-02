@@ -13,5 +13,5 @@ jobs:
       - name: Run docker commands
         run: |
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
-          docker run -p 5000:5000 test-app &
-          curl http://localhost:5000/health
+          docker run -p 80:80 test-app &
+          curl http://localhost:80/health
