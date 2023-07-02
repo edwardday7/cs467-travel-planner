@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  app-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2 # Checkout your repository
@@ -13,5 +13,5 @@ jobs:
       - name: Run docker commands
         run: |
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
-          docker run -p 5000:5000 test-app
+          docker run -p 5000:5000 test-app &
           curl http://localhost:5000/health
