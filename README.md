@@ -20,6 +20,10 @@ Run application:
 
 `python3 run.py`
 
+### Changes to Packages
+
+If you add additional python packages, please make sure to add them to the requirements.txt file in the repository as the container build depends on that file. Otherwise, your build might fail.
+
 ## Making Changes and Deploying
 
 When you are ready to incorporate your changes, open a Pull Request. Upon a successful merge of the Pull Request, a deployment will automatically be kicked off. You can check the status of the deployment on the "Actions" tab. Changes will be available at the following url:
