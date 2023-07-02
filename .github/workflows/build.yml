@@ -14,4 +14,5 @@ jobs:
         run: |
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
           docker run -p 80:80 test-app &
+          sleep 5
           curl http://localhost:80/health
