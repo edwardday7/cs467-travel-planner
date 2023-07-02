@@ -34,9 +34,3 @@ jobs:
           imageToBuild: osucapstoneproject.azurecr.io/capstone-travel-app:$BUILD_NUMBER
           targetPort: 80
           ingress: external
-      
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            App finished deploying. View changes here: https://capstone-travel-app.bravesmoke-8633c4f4.eastus.azurecontainerapps.io
