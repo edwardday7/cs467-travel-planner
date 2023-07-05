@@ -1,4 +1,4 @@
-# Open Source Travel Planner
+# Crowd-Sourced Travel Planner
 
 ## Development
 
