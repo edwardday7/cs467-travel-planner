@@ -1,0 +1,25 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+       <tr>
+          <th>Id</th>
+          <th>Name</th>
+       </tr>
+    </thead>
+    
+    <tbody>
+       {% for user in users %}
+          <tr>
+             <td>{{ user.id }}</td>
+             <td>{{ user.name }}</td>
+          </tr>
+       {% endfor %}
+    </tbody>
+ </table>
+{% endblock %}
