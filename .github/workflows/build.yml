@@ -13,7 +13,7 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE test;' -u root -p root
+          mysql -e 'CREATE DATABASE test;' -uroot -proot
 
       - name: Run docker commands
         run: |
