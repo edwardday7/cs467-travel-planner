@@ -7,6 +7,7 @@ For setting up and running locally, follow the below instructions.
 ### Prerequisites
 
 - Python 3.9+
+- MySQL 8.0
 
 ### Installation
 
@@ -15,6 +16,16 @@ It is recommended to use a [virtual environment](https://realpython.com/python-v
 `pip install -r requirements.txt`
 
 `npm install bootstrap@5.3.0`
+
+Options for Downloading and Running MySQL: 
+- Direct install - https://dev.mysql.com/downloads/mysql/
+- Through Docker - `docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root-password -e MYSQL_DATABASE=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test mysql:8.0`
+
+After install, set the following environment variables:
+- DB_USER - Your database username
+- DB_PASSWORD - Your database password
+- DB_HOST - Host address. Likely localhost unless you're using a cloud instance
+- DB_NAME - The name of your created database
 
 ### Running Locally
 
