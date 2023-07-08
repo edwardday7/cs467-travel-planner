@@ -19,7 +19,7 @@ jobs:
           export DB_HOST=localhost
           export DB_NAME=test
           docker run -p 80:80 test-app > container.log 2>&1 &
-          while ! grep "Listening at: http://0.0.0.0:80 " container.log; do
+          while ! grep "Booting worker with pid" container.log; do
               sleep 1
           done
           curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
