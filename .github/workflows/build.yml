@@ -8,14 +8,23 @@ jobs:
   app-build:
     runs-on: ubuntu-latest
     container: ubuntu
+    env:
+      MYSQL_USER: test
+      MYSQL_DB: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DB }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        ports:
+          - 3306:3306
     steps:
       - uses: actions/checkout@v2 # Checkout your repository
-
-      - name: Set up MySQL
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE test;' -uroot -proot
-          mysql -e 'SHOW DATABASES;' -uroot -proot
 
       - name: Wait for MySQL to Startup
         run: sleep 60
@@ -24,7 +33,7 @@ jobs:
         run: docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
 
       - name: Docker Run
-        run: docker run -p 80:80 -e DB_USER=root -e DB_PASSWORD=root -e DB_HOST=127.0.0.1:3306 -e DB_NAME=test test-app
+        run: docker run -p 80:80 -e DB_USER=test -e DB_PASSWORD=test -e DB_HOST=127.0.0.1:3306 -e DB_NAME=test test-app
 
       - name: Wait for App Startup
         run: sleep 5
