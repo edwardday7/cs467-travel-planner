@@ -7,7 +7,6 @@ on:
 jobs:
   app-build:
     runs-on: ubuntu-latest
-    container: ubuntu
     env:
       MYSQL_USER: test
       MYSQL_DB: test
