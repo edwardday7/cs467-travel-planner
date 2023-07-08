@@ -14,8 +14,6 @@ jobs:
         run: |
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
           docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root-password -e MYSQL_DATABASE=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test mysql:8.0
-          docker run -p 80:80 -e DB_USER=test -e DB_PASSWORD=test -e DB_HOST=localhost -e DB_NAME=test test-app > ${{ github.workspace }}/container.log 2>&1 &
-          while ! grep "Booting worker with pid" ${{ github.workspace }}/container.log; do
-              sleep 1
-          done
+          docker run -p 80:80 -e DB_USER=test -e DB_PASSWORD=test -e DB_HOST=localhost -e DB_NAME=test test-app
+          sleep 5
           curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
