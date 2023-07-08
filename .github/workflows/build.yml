@@ -16,11 +16,8 @@ jobs:
           mysql -e 'CREATE DATABASE test;' -uroot -proot
           mysql -e 'SHOW DATABASES;' -uroot -proot
 
-      - name: Find MySQL Port
-        run: netstat -tln
-
       - name: Wait for MySQL to Startup
-        run: sleep 10
+        run: sleep 60
 
       - name: Docker Build
         run: docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
