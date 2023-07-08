@@ -7,35 +7,18 @@ on:
 jobs:
   app-build:
     runs-on: ubuntu-latest
-    env:
-      MYSQL_USER: test
-      MYSQL_DB: test
-      MYSQL_PASSWORD: test
-      MYSQL_ROOT_PASSWORD: test
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: ${{ env.MYSQL_DB }}
-          MYSQL_USER: ${{ env.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
-        ports:
-          - 3306:3306
     steps:
       - uses: actions/checkout@v2 # Checkout your repository
-
-      - name: Wait for MySQL to Startup
-        run: sleep 60
 
       - name: Docker Build
         run: docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
 
       - name: Docker Run
-        run: docker run -p 80:80 -e DB_USER=test -e DB_PASSWORD=test -e DB_HOST=127.0.0.1:3306 -e DB_NAME=test test-app
+        run: docker run -p 80:80 -e DB_USER={{ secrets.DB_USER }} -e DB_PASSWORD={{ secrets.DB_PASSWORD }} -e DB_HOST={{ secrets.DB_HOST }} -e DB_NAME=project test-app
 
       - name: Wait for App Startup
         run: sleep 5
       
-      - name: Test App
+      - name: Build and Test App
+
         run: curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
