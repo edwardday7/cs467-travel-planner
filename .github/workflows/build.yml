@@ -22,4 +22,6 @@ jobs:
           while ! grep "Booting worker with pid" container.log; do
               sleep 1
           done
+          echo 'test'
+          sleep 2
           curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
