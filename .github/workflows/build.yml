@@ -19,6 +19,6 @@ jobs:
       - name: Run docker commands
         run: |
           docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
-          docker run -p 80:80 -e DB_USER=root -e DB_PASSWORD=root -e DB_HOST=127.0.0.1 -e DB_NAME=test test-app
+          docker run -p 80:80 -e DB_USER=root -e DB_PASSWORD=root -e DB_HOST=0.0.0.0 -e DB_NAME=test test-app
           sleep 5
           curl -s -o /dev/null -w "%{http_code}" http://localhost:80/health | grep -q 200
