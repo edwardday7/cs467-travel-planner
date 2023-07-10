@@ -1,6 +1,8 @@
 # seed.py
+import bcrypt
 from ..app_instance import app, db
 from ..models.models import User, Follower, Experience, Trip
+from ..routes.auth import create_password
 
 def seed_data():
     db.drop_all()
@@ -8,14 +10,12 @@ def seed_data():
 
     # Create test users
     user1 = User(
-        firstname="TestUser1",
-        lastname="User1",
-        password="password"
+        username="TestUser1",
+        password=create_password("password"),
     )
     user2 = User(
-        firstname="TestUser2",
-        lastname="User2",
-        password="password"
+        username="TestUser2",
+        password=create_password("password2"),
     )
     db.session.add(user1)
     db.session.add(user2)
@@ -24,8 +24,8 @@ def seed_data():
 
     # Make user1 follow user2
     follower_relation = Follower(
-        user_id=user1.id,
-        follower_id=user2.id
+        user_username=user1.username,
+        follower_username=user2.username
     )
     db.session.add(follower_relation)
 
@@ -33,7 +33,7 @@ def seed_data():
 
     # Create test experiences
     experience1 = Experience(
-        user_id=user1.id,
+        user_username=user1.username,
         title="Kennedy Space Center",
         description="Its out of this world!",
         latitude=28.5729,
@@ -44,7 +44,7 @@ def seed_data():
         rating=4.5
     )
     experience2 = Experience(
-        user_id=user2.id,
+        user_username=user2.username,
         title="Balloon Fiesta",
         description="Balloon Fiesta in Albuquerque NM!",
         latitude=35.0844,
@@ -61,11 +61,11 @@ def seed_data():
 
     # Create test trips
     trip1 = Trip(
-        user_id=user1.id,
+        user_username=user1.username,
         experience_id=experience1.id
     )
     trip2 = Trip(
-        user_id=user2.id,
+        user_username=user2.username,
         experience_id=experience2.id
     )
     db.session.add(trip1)

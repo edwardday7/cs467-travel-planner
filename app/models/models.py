@@ -1,18 +1,16 @@
 from app import db
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    firstname = db.Column(db.String(255), nullable=False)
-    lastname = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(255), primary_key=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
 class Follower(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    follower_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    user_username = db.Column(db.String(255), db.ForeignKey('user.username'), primary_key=True)
+    follower_username = db.Column(db.String(255), db.ForeignKey('user.username'), primary_key=True)
 
 class Experience(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     title = db.Column(db.String(255))
     description = db.Column(db.Text)
     latitude = db.Column(db.Float)
@@ -25,5 +23,5 @@ class Experience(db.Model):
 
 class Trip(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     experience_id = db.Column(db.Integer, db.ForeignKey('experience.id'), nullable=False)
