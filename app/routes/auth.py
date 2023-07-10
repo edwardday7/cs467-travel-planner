@@ -40,5 +40,9 @@ def logout():
 def expired_token(jwt_header, jwt_payload):
     return redirect('/login', 302)
 
+@jwt.unauthorized_loader
+def unauthorized(error_message):
+    return redirect('/login', 302)
+
 def create_password(password):
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
