@@ -13,14 +13,14 @@ Home Page
           Login
         </div>
         <div class="card-body">
-          <form>
+          <form method="post" action="/login">
             <div class="mb-3">
               <label for="usernameInput" class="form-label">Username</label>
-              <input type="username" class="form-control" id="usernameInput">
+              <input type="username" class="form-control" id="usernameInput" name="username">
             </div>
             <div class="mb-3">
               <label for="passwordInput" class="form-label">Password</label>
-              <input type="password" id="passwordInput" class="form-control" aria-labelledby="passwordHelpBlock">
+              <input type="password" id="passwordInput" name="password" class="form-control" aria-labelledby="passwordHelpBlock">
             </div>
             <button type="submit" class="btn btn-primary mb-3">Login</button>
           </form>

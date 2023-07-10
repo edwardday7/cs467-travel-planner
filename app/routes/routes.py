@@ -1,26 +1,18 @@
 from flask import render_template, jsonify
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db
-from app.models.models import User
+from app.models.models import Trip, User
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/users')
+@app.route('/trips')
+@jwt_required()
 def users():
-    users = db.session.execute(db.select(User).order_by(User.name)).scalars()
-    return render_template('users.html', users=users)
-
-@app.route("/login", methods=["GET"])
-def login():
-    # username = request.json.get("username", None)
-    # password = request.json.get("password", None)
-    # if username != "test" or password != "test":
-    #     return jsonify({"msg": "Bad username or password"}), 401
-
-    # access_token = create_access_token(identity=username)
-    # return jsonify(access_token=access_token)
-    return render_template('login.html')
+    username = get_jwt_identity()
+    trips = db.session.execute(db.select(Trip).join_from(User, Trip).where(User.username == username)).scalars()
+    return render_template('trips.html', trips=trips)
 
 @app.route('/health')
 def health():

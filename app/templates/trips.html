@@ -8,16 +8,16 @@ Users
 <table>
     <thead>
        <tr>
-          <th>Id</th>
-          <th>Name</th>
+          <th>Username</th>
+          <th>Experience ID</th>
        </tr>
     </thead>
     
     <tbody>
-       {% for user in users %}
+       {% for trip in trips %}
           <tr>
-             <td>{{ user.id }}</td>
-             <td>{{ user.name }}</td>
+             <td>{{ trip.user_username }}</td>
+             <td>{{ trip.experience_id }}</td>
           </tr>
        {% endfor %}
     </tbody>
