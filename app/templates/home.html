@@ -5,5 +5,70 @@ Home Page
 {% endblock %}
 
 {% block content %}
-<h1>CS 467 - Crowd-Sourced Travel Planner</h1>
+
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="{{ url_for('static', filename='logo.jpg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+      <!-- Image by <a href="https://www.freepik.com/free-vector/detailed-travel-logo_9472418.htm">Freepik</a> -->
+      Crowd-Sourced Travel Planner
+    </a>
+    <span class="navbar-text">
+        Login Butto
+    </span>
+  </nav>
+
+
+<style>
+    body {background-color: #CCCCFF;}
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        height: 100%;
+        display: flex;
+    }
+    
+    .half {
+        flex-basis: 50%;
+
+    }
+
+    img.rounded-corners {
+        border-radius: 30px;
+    }
+</style>
+
+<div class="container">
+    <div class="half">
+        <!-- Content for the left half of the page -->
+        {% for experience in experiences %}
+        <br>
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ experience.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Created by: {{ experience.user_username }}</h6>
+              <p class="card-text">{{experience.description}}</p>
+              <a href="https://www.google.com/maps/search/?api=1&query={{ experience.latitude}},{{ experience.longitude}}" class="card-link">Google Maps</a>
+              
+              <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
+            </div>
+          </div>
+        
+        {% endfor %}
+    </div>
+    <div class="half">
+        <br>
+        <!-- Content for the right half of the page -->
+        <img src="{{ url_for('static', filename='vw.jpeg')}}"
+        width="400" 
+        height="325" 
+        class="rounded-corners" />
+    </div>
+</div>
+
 {% endblock %}

@@ -5,7 +5,14 @@ from app.models.models import Trip, User
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    experiences = db.session.execute(db.select(Experience)).scalars()
+    
+    for row in db.session.query(Experience):
+        print(row.title)
+        print(row.description)
+
+    return render_template('home.html', experiences = experiences)
+    
 
 @app.route('/trips')
 @jwt_required()
