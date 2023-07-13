@@ -1,11 +1,14 @@
 from flask import render_template, jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db
-from app.models.models import Trip, User
+from app.models.models import Trip, User, Experience
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    experiences = db.session.execute(db.select(Experience)).scalars()
+    
+    return render_template('home.html', experiences = experiences)
+    
 
 @app.route('/trips')
 @jwt_required()
