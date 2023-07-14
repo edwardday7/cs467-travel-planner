@@ -1,0 +1,238 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Simple Tabs</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <main id="mainpage">
+        <h1>Welcome!</h1>
+    <div class="tabs_container">
+        <button class="btn active" id="flex-item-1">Login</button>
+        <button class="btn " id="flex-item-2">Sign up</button>
+    </div>
+    <div class="page_tabs">
+        <div class="tab" id="login_div">
+            <form>
+                <label for="username" class="label">Username:</label><br>
+                <input type="text" id="username" class="inputs" required><br>
+                <label for="password" class="label">Password:</label><br>
+                <input type="password" id="password" class="inputs" required><br>
+                <div class="login-with">
+                <div class="button-log">
+                    <svg class="svg-icon" viewBox="0 0 20 20">
+                        <path d="M17.283,5.549h-5.26V4.335c0-0.222-0.183-0.404-0.404-0.404H8.381c-0.222,0-0.404,0.182-0.404,0.404v1.214h-5.26c-0.223,0-0.405,0.182-0.405,0.405v9.71c0,0.223,0.182,0.405,0.405,0.405h14.566c0.223,0,0.404-0.183,0.404-0.405v-9.71C17.688,5.731,17.506,5.549,17.283,5.549 M8.786,4.74h2.428v0.809H8.786V4.74z M16.879,15.26H3.122v-4.046h5.665v1.201c0,0.223,0.182,0.404,0.405,0.404h1.618c0.222,0,0.405-0.182,0.405-0.404v-1.201h5.665V15.26z M9.595,9.583h0.81v2.428h-0.81V9.583zM16.879,10.405h-5.665V9.19c0-0.222-0.183-0.405-0.405-0.405H9.191c-0.223,0-0.405,0.183-0.405,0.405v1.215H3.122V6.358h13.757V10.405z"></path>
+                    </svg>
+                </div>
+                <div class="button-log">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                      <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z"/>
+                    </svg>
+                </div>
+                </div>
+                <button class="tabs_btn">Login</button>
+            </form>
+        </div>
+        <div class="tab" id="signup_div">
+            <form>
+                <label for="username" class="label">Username:</label><br>
+                <input type="text" id="username" class="inputs" required><br>
+                <label for="password" class="label">Password:</label><br>
+                <input type="password" id="password" class="inputs" required><br>
+                <label for="confrimpassword" class="label">Confirm Password:</label><br>
+                <input type="password" id="confirmpassword" class="inputs" required><br>
+                <div class="login-with">
+                <div class="button-log">
+                    <svg class="svg-icon" viewBox="0 0 20 20">
+                        <path d="M17.283,5.549h-5.26V4.335c0-0.222-0.183-0.404-0.404-0.404H8.381c-0.222,0-0.404,0.182-0.404,0.404v1.214h-5.26c-0.223,0-0.405,0.182-0.405,0.405v9.71c0,0.223,0.182,0.405,0.405,0.405h14.566c0.223,0,0.404-0.183,0.404-0.405v-9.71C17.688,5.731,17.506,5.549,17.283,5.549 M8.786,4.74h2.428v0.809H8.786V4.74z M16.879,15.26H3.122v-4.046h5.665v1.201c0,0.223,0.182,0.404,0.405,0.404h1.618c0.222,0,0.405-0.182,0.405-0.404v-1.201h5.665V15.26z M9.595,9.583h0.81v2.428h-0.81V9.583zM16.879,10.405h-5.665V9.19c0-0.222-0.183-0.405-0.405-0.405H9.191c-0.223,0-0.405,0.183-0.405,0.405v1.215H3.122V6.358h13.757V10.405z"></path>
+                    </svg>
+                </div>
+                <div class="button-log">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                      <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z"/>
+                    </svg>
+                </div>
+                </div>
+                <button class="tabs_btn">Sign up</button>
+            </form>
+        </div>
+    </div>
+    </main>
+
+
+<script>
+        const loginBtnTab = document.getElementById("flex-item-1");
+        const signupBtnTab = document.getElementById("flex-item-2");
+        const divLoginTab = document.getElementById ("login_div");
+        const divSignupTab = document.getElementById ("signup_div");
+
+        loginBtnTab.addEventListener("click", ()=>{
+        loginBtnTab.classList.add ("active");
+        signupBtnTab.classList.remove ("active");
+        divSignupTab.style.zIndex = 0;
+        divLoginTab.style.zIndex = 1;
+
+    })
+        signupBtnTab.addEventListener("click", ()=>{
+        signupBtnTab.classList.add ("active");
+        loginBtnTab.classList.remove ("active");
+        divLoginTab.style.zIndex = 0;
+        divSignupTab.style.zIndex = 1;
+    })
+</script>
+
+</body>
+</html>
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #fff;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+main h1{
+    text-align: center;
+    margin-top: 40px;
+    letter-spacing: 5px;
+    font-size: 30px;
+}
+.tabs_container{
+    display: flex;
+    justify-content: center;
+}
+#flex-item-1{
+    border-radius: 5px 0 0 5px;
+}
+#flex-item-2{
+    border-radius: 0 5px 5px 0;
+}
+.page_tabs{
+    display: flex;
+    justify-content: center;
+
+}
+.btn{
+    width: 250px;
+    height: 70px;
+    border: none;
+    margin: 20px 0;
+    background: linear-gradient(#4e54c8, #8f94fb);;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.active{
+    background: #D9D9D9;
+    box-shadow: 2px 2px 10px #000;
+    z-index: 1;
+}
+.tab {
+    width: 500px;
+    height: 400px;
+    background: #D9D9D9;
+    /* border: 1px solid #000; */
+}
+#login_div{
+    --input-focus: #2d8cf0;
+  --font-color: #323232;
+  --font-color-sub: #666;
+  --bg-color: #fff;
+  --main-color: #323232;
+      border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+    position: relative;
+    background: #D9D9D9;
+    z-index: 1;
+
+}
+#signup_div{
+       --input-focus: #2d8cf0;
+  --font-color: #323232;
+  --font-color-sub: #666;
+  --bg-color: #fff;
+  --main-color: #323232;
+      border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+    position: absolute;
+    background: #D9D9D9;
+    z-index: 1;
+}
+.tab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inputs{
+    width: 300px;
+    height: 40px;
+   border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+    margin: 4px 0 11px 0;
+    padding: 5px 15px;
+    font-size: 19px;
+    outline: none;
+    color: var(--font-color);
+}
+.inputs:focus {
+  border: 2px solid var(--input-focus);
+}
+.tabs_btn{
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+}
+.label{
+    font-size: 18px;
+}
+.login-with {
+  display: flex;
+  gap: 20px;
+}
+
+.button-log {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  color: var(--font-color);
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
+
+{% endblock %}
