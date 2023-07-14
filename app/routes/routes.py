@@ -20,3 +20,7 @@ def users():
 @app.route('/health')
 def health():
     return jsonify({'status': 'ok'}), 200
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
