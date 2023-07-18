@@ -3,7 +3,8 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db
 from app.models.models import Trip, User, Experience, Follower
 from sqlalchemy import desc
-
+from statistics import mean
+import folium
 
 @app.route('/')
 @jwt_required(optional=True)
@@ -21,6 +22,15 @@ def home():
     else:
        return render_template('home.html', experiences=new_exp, f_exp = follower_exp, current_user = True)
 
+@app.route('/map/<float:lat>/<long>/<string:name>')
+def map(lat, long, name):
+    m = folium.Map()
+    coordinate = (lat, long)
+    folium.Marker(coordinate, popup=name).add_to(m)
+    m.get_root().width = "500px"
+    m.get_root().height = "300px"
+    iframe = m.get_root()._repr_html_()
+    return render_template("map.html", iframe = iframe)
 
 @app.route('/trips')
 @jwt_required()

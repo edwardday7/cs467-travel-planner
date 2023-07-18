@@ -74,7 +74,7 @@ def seed_data():
         title="Eiffel Tower",
         description="Tall and pointy!",
         latitude=48.8584,
-        longitude=-106.6504,
+        longitude=2.2945,
         state="Ile-de-France",
         country="France",
         image="image3.jpg",
