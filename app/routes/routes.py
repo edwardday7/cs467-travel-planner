@@ -23,14 +23,17 @@ def home():
        return render_template('home.html', experiences=new_exp, f_exp = follower_exp, current_user = True)
 
 @app.route('/map/<float:lat>/<long>/<string:name>')
+@jwt_required(optional=True)
 def map(lat, long, name):
+    current_user = bool(get_jwt_identity())
     m = folium.Map()
     coordinate = (lat, long)
     folium.Marker(coordinate, popup=name).add_to(m)
     m.get_root().width = "500px"
     m.get_root().height = "300px"
     iframe = m.get_root()._repr_html_()
-    return render_template("map.html", iframe = iframe)
+    return render_template("map.html", iframe = iframe, current_user = current_user)
+
 
 @app.route('/trips')
 @jwt_required()
