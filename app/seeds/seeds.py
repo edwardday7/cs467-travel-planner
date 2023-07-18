@@ -11,14 +11,21 @@ def seed_data():
     # Create test users
     user1 = User(
         username="TestUser1",
-        password=create_password("password"),
+        password=create_password("password")
     )
     user2 = User(
         username="TestUser2",
         password=create_password("password2"),
     )
+
+    user3 = User(
+        username="TestUser3",
+        password=create_password("password3"),
+    )
+
     db.session.add(user1)
     db.session.add(user2)
+    db.session.add(user3)
 
     db.session.commit()
 
@@ -27,7 +34,14 @@ def seed_data():
         user_username=user1.username,
         follower_username=user2.username
     )
+
+    follower_relation2 = Follower(
+        user_username=user1.username,
+        follower_username=user3.username
+    )
+
     db.session.add(follower_relation)
+    db.session.add(follower_relation2)
 
     db.session.commit()
 
@@ -54,8 +68,22 @@ def seed_data():
         image="image2.jpg",
         rating=3.8
     )
+
+    experience3 = Experience(
+        user_username=user3.username,
+        title="Eiffel Tower",
+        description="Tall and pointy!",
+        latitude=48.8584,
+        longitude=-106.6504,
+        state="Ile-de-France",
+        country="France",
+        image="image3.jpg",
+        rating=3.8
+    )
+
     db.session.add(experience1)
     db.session.add(experience2)
+    db.session.add(experience3)
 
     db.session.commit()
 
