@@ -165,6 +165,7 @@ Home Page
                                               <h5 class="card-title">{{ f_exps.title }}</h5>
                                               <h6 class="card-subtitle mb-2 text-muted">Created by: {{ f_exps.user_username }}</h6>
                                               <p class="card-text">{{f_exps.description}}</p>
+                                              <a href= "{{ url_for('map', lat = f_exps.latitude, long = f_exps.longitude, name = f_exps.title) }}" class="card-link">OpenMaps</a>
                                               <a href="https://www.google.com/maps/search/?api=1&query={{ f_exps.latitude}},{{ f_exps.longitude}}" class="card-link">Google Maps</a>
                                               <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
                                             </div>
