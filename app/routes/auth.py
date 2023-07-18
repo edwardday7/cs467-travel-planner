@@ -8,21 +8,43 @@ from ..app_instance import jwt
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        return render_template('login.html')
+        return render_template('register.html')
     else:
         username = request.form.get("username")
         password = request.form.get("password")
 
         if not username or not password:
-            return render_template('login.html'), 401
+            return render_template('register.html'), 401
 
         user = db.session.execute(db.select(User).where(User.username == username)).scalar()
         
         if not user:
-            return render_template('login.html'), 401
+            return render_template('register.html'), 401
 
         if not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-            return render_template('login.html'), 401
+            return render_template('register.html'), 401
+
+        access_token = create_access_token(identity=user.username)
+
+        response = make_response(redirect('/', 302))
+        set_access_cookies(response, encoded_access_token=access_token)
+        return response
+    
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == "GET":
+        return render_template('register.html')
+    else:
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if not username or not password:
+            return render_template('register.html'), 401
+        
+        user = User(username=username, password=create_password(password))
+
+        db.session.add(user)
+        db.session.commit()
 
         access_token = create_access_token(identity=user.username)
 

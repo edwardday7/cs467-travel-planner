@@ -27,11 +27,11 @@ Home Page
     </div>
     <div class="page_tabs">
         <div class="tab" id="login_div">
-            <form>
+            <form method="post" action="/login">
                 <label for="username" class="label">Username:</label><br>
-                <input type="text" id="username" class="inputs" required><br>
+                <input type="text" id="username" class="inputs" name="username" required><br>
                 <label for="password" class="label">Password:</label><br>
-                <input type="password" id="password" class="inputs" required><br>
+                <input type="password" id="password" class="inputs" name="password" required><br>
                 <div class="login-with">
                 <div class="button-log">
                     <svg class="svg-icon" viewBox="0 0 20 20">
@@ -48,11 +48,11 @@ Home Page
             </form>
         </div>
         <div class="tab" id="signup_div">
-            <form>
+            <form method="post" action="/register">
                 <label for="username" class="label">Username:</label><br>
-                <input type="text" id="username" class="inputs" required><br>
+                <input type="text" id="username" class="inputs" name="username" required><br>
                 <label for="password" class="label">Password:</label><br>
-                <input type="password" id="password" class="inputs" required><br>
+                <input type="password" id="password" class="inputs" name="password" required><br>
                 <label for="confrimpassword" class="label">Confirm Password:</label><br>
                 <input type="password" id="confirmpassword" class="inputs" required><br>
                 <div class="login-with">
