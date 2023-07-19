@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold">
+    <a class="navbar-brand fw-bold" href="/">
         <img src="{{ url_for('static', filename='logo.jpg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
       <!-- Image by <a href="https://www.freepik.com/free-vector/detailed-travel-logo_9472418.htm">Freepik</a> -->
       Crowd-Sourced Travel Planner
@@ -12,20 +12,7 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <div class="navbar-nav ml-auto">
 			<div class="nav-item dropdown login-dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle"><i class="fa fa-plus"></i> Add Experience</a>
-				<div class="dropdown-menu">
-                    <form class="form-inline login-form" action="/examples/actions/confirmation.php" method="post">
-                        <div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">
-									<span class="fa fa-plus"></span>
-								</span>
-							</div>
-                            <input type="text" class="form-control" placeholder="Add.." required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Go</button>
-                    </form>
-                </div>
+				<a href="/experiences/new" class="nav-item nav-link dropdown-toggle"><i class="fa fa-plus"></i> Add Experience</a>
             </div>
         </div>
         <div class="navbar-nav ml-auto">
