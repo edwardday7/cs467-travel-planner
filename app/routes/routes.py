@@ -1,8 +1,8 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db
 from app.models.models import Trip, User, Experience, Follower, Rating
-from sqlalchemy import desc
+from sqlalchemy import desc, or_
 from statistics import mean
 import folium
 from sqlalchemy import and_
@@ -80,6 +80,24 @@ def users():
     trips = db.session.execute(db.select(Trip).join_from(User, Trip).where(User.username == username)).scalars()
     return render_template('trips.html', trips=trips)
 
+@app.route('/experiences', methods=['GET'])
+def experiences():
+    search = request.args.get('q')
+    sort = request.args.get('sort')
+    
+    if search:
+        experiences = Experience.query.filter(or_(Experience.title.contains(search), Experience.description.contains(search)))
+    else:
+        experiences = Experience.query
+
+    if sort == 'highest_rating':
+        experiences = experiences.order_by(Experience.rating.desc())
+    elif sort == 'lowest_rating':
+        experiences = experiences.order_by(Experience.rating.asc())
+
+    experiences = experiences.all()
+
+    return render_template('experiences.html', experiences=experiences)
 
 @app.route('/health')
 def health():
