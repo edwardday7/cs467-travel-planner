@@ -7,41 +7,51 @@ Experiences
 {% block content %}
 {% include 'navbar.html' %}
 <body>
-    <div class="container mt-4">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <form action="/experiences" method="get" class="mb-4">
-            <div class="input-group">
-              <input type="text" class="form-control" name="q" placeholder="Search...">
-              <select class="form-control" name="sort">
-                <option value="">Sort by...</option>
-                <option value="highest_rating">Highest Rating</option>
-                <option value="lowest_rating">Lowest Rating</option>
-              </select>
-              <div class="input-group-append">
-                <input type="submit" class="btn btn-outline-secondary" value="Search">
-                <a href="/experiences" class="btn btn-primary">Clear Search</a>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 mx-auto">
+        <form action="/experiences" method="get" class="mb-4">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="input-group">
+                <input type="search" class="form-control" id="search-input" name="q" placeholder="Enter an experience or description" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
               </div>
             </div>
-          </form>
-        </div>
+            <div class="col-md-1 mb-3 me-4">
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sort
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/experiences?sort=highest_rating">Highest Rating</a>
+                  <a class="dropdown-item" href="/experiences?sort=lowest_rating">Lowest Rating</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <a href="/experiences" class="btn btn-danger">Clear Search</a>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <div class="container">
-        <div class="row">
-            {% for experience in experiences %}
-            <div class="col-sm-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ experience.title }}</h5>
-                        <p class="card-text">{{ experience.description }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+  <div class="container">
+      <div class="row">
+          {% for experience in experiences %}
+          <div class="col-sm-4">
+              <div class="card mb-4">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ experience.title }}</h5>
+                      <p class="card-text">{{ experience.description }}</p>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
     
-  </body>
+</body>
 {% endblock %}
