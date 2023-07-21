@@ -13,6 +13,11 @@ Experiences
           <form action="/experiences" method="get" class="mb-4">
             <div class="input-group">
               <input type="text" class="form-control" name="q" placeholder="Search...">
+              <select class="form-control" name="sort">
+                <option value="">Sort by...</option>
+                <option value="highest_rating">Highest Rating</option>
+                <option value="lowest_rating">Lowest Rating</option>
+              </select>
               <div class="input-group-append">
                 <input type="submit" class="btn btn-outline-secondary" value="Search">
                 <a href="/experiences" class="btn btn-primary">Clear Search</a>

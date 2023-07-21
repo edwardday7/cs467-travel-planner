@@ -78,7 +78,7 @@ def seed_data():
         state="Ile-de-France",
         country="France",
         image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
-        rating=3.8
+        rating=5
     )
 
     db.session.add(experience1)
