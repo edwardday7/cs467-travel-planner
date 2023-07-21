@@ -58,7 +58,7 @@ Home Page
             Add a New Experience
         </div>
         <div class="card-body">
-            <form method="post" action="/experiences/new">
+            <form method="post" action="/experiences/new" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" name="title" required>
@@ -85,7 +85,7 @@ Home Page
                 </div>
                 <div class="mb-3">
                     <label for="file" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="file" name="file" required>
+                    <input class="form-control" type="file" accept="image/*" id="file" name="file" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
