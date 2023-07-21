@@ -18,10 +18,16 @@ class Experience(db.Model):
     state = db.Column(db.String(100))
     country = db.Column(db.String(100))
     image = db.Column(db.String(255))
-    rating = db.Column(db.Float)
     time_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 class Trip(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     experience_id = db.Column(db.Integer, db.ForeignKey('experience.id'), nullable=False)
+
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
+    experience_id = db.Column(db.Integer, db.ForeignKey('experience.id'), nullable=False)
+    rating = db.Column(db.Float)
+
