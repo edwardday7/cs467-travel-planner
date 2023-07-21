@@ -27,4 +27,4 @@ def create_experience():
         return redirect('/')
     
 def upload_file(image):
-    return container_client.upload_blob(image.filename + str(uuid.uuid4()), image, overwrite=True)
+    return container_client.upload_blob(image.filename + str(uuid.uuid4()), image)
