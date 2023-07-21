@@ -27,6 +27,9 @@ After install, set the following environment variables:
 - DB_HOST - Host address. Likely localhost unless you're using a cloud instance
 - DB_NAME - The name of your created database
 
+In addition to setting up MySQL, you will also need to set the following environment variable:
+- AZURE_STORAGE_CONNECTION_STRING - Obtain this value from Edward as it's a secret. Allows for photo uploads.
+
 ### Running Locally
 
 Run application:
