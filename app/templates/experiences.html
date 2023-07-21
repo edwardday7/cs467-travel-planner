@@ -1,0 +1,42 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Experiences
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<body>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form action="/experiences" method="get" class="mb-4">
+            <div class="input-group">
+              <input type="text" class="form-control" name="q" placeholder="Search...">
+              <div class="input-group-append">
+                <input type="submit" class="btn btn-outline-secondary" value="Search">
+                <a href="/experiences" class="btn btn-primary">Clear Search</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for experience in experiences %}
+            <div class="col-sm-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ experience.title }}</h5>
+                        <p class="card-text">{{ experience.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+  </body>
+{% endblock %}
