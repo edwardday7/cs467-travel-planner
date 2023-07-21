@@ -1,7 +1,7 @@
 # seed.py
 import bcrypt
 from ..app_instance import app, db
-from ..models.models import User, Follower, Experience, Trip
+from ..models.models import User, Follower, Experience, Trip, Rating
 from ..routes.auth import create_password
 
 def seed_data():
@@ -40,8 +40,20 @@ def seed_data():
         follower_username=user3.username
     )
 
+    follower_relation3 = Follower(
+        user_username=user2.username,
+        follower_username=user3.username
+    )
+
+    follower_relation4 = Follower(
+        user_username=user3.username,
+        follower_username=user1.username
+    )
+
     db.session.add(follower_relation)
     db.session.add(follower_relation2)
+    db.session.add(follower_relation3)
+    db.session.add(follower_relation4)
 
     db.session.commit()
 
@@ -55,7 +67,6 @@ def seed_data():
         state="Florida",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/kennedy-space-center-florida_18000_xl-2795190506.jpg",
-        rating=4.5
     )
     experience2 = Experience(
         user_username=user2.username,
@@ -66,7 +77,6 @@ def seed_data():
         state="New Mexico",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
-        rating=3.8
     )
 
     experience3 = Experience(
@@ -78,7 +88,6 @@ def seed_data():
         state="Ile-de-France",
         country="France",
         image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
-        rating=5
     )
 
     db.session.add(experience1)
@@ -98,5 +107,38 @@ def seed_data():
     )
     db.session.add(trip1)
     db.session.add(trip2)
+
+    # Create test ratings
+    rating1 = Rating(
+        username=user2.username,
+        experience_id=experience1.id,
+        rating=4.5
+    )
+    rating2 = Rating(
+        username=user3.username,
+        experience_id=experience1.id,
+        rating=3.8
+    )
+    rating3 = Rating(
+        username=user1.username,
+        experience_id=experience2.id,
+        rating=4.0
+    )
+    rating4 = Rating(
+        username=user3.username,
+        experience_id=experience2.id,
+        rating=4.5
+    )
+    rating5 = Rating(
+        username=user2.username,
+        experience_id=experience3.id,
+        rating=5
+    )
+
+    db.session.add(rating1)
+    db.session.add(rating2)
+    db.session.add(rating3)
+    db.session.add(rating4)
+    db.session.add(rating5)
 
     db.session.commit()

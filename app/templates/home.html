@@ -123,7 +123,78 @@ Home Page
     align-items: center;
 }
 
+{#.nav-link a {#}
+{#    justify-content: center!important;#}
+{#    text-align: center!important;#}
+{#    border: 1px solid black!important;#}
+{#    background-color: #2d8cf0 !important;#}
+{#}#}
 
+.a_button {
+    display: block;
+    width: 250px;
+    height: 35px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    text-decoration: none !important;
+}
+
+{#.a_button a:hover{#}
+{#	color: #9F2B68 !important;#}
+{#}#}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 30px;
+    font-weight: 300;
+    color: #FFD600;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+{#.rating>label:hover:before,#}
+{#.rating>label:hover~label:before {#}
+{#    opacity: 1 !important#}
+{#}#}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+{#.rating:hover>input:checked~label:before {#}
+{#    opacity: 0.4#}
+{#}#}
+{##}
+{#.rating-submit{#}
+{#	border-radius: 15px;#}
+{#	color: #fff;#}
+{#    height: 49px;#}
+{#}#}
+{##}
+{#.rating-submit:hover{#}
+{#	color: #fff;#}
+{#}#}
 @media screen and (max-width: 768px) {
     .container {
         padding:0;
@@ -155,7 +226,7 @@ Home Page
                     <button class="tab-btn active" id="flex-item-1">Following</button>
                     <button class="tab-btn" id="flex-item-2">New</button>
                 </div>
-                
+
                 <div class="page_tabs">
                     <div class="tab" id="follower_div">
                         {% for f_exps in f_exp %}
@@ -167,12 +238,49 @@ Home Page
                                               <p class="card-text">{{f_exps.description}}</p>
                                               <a href= "{{ url_for('map', lat = f_exps.latitude, long = f_exps.longitude, name = f_exps.title) }}" class="card-link">OpenMaps</a>
                                               <a href="https://www.google.com/maps/search/?api=1&query={{ f_exps.latitude}},{{ f_exps.longitude}}" class="card-link">Google Maps</a>
-                                              <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
+{#                                              <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>#}
+                                              {% if f_exps.id in ratings_map %}
+                                                  <p style="margin-bottom: 0;">Number of Ratings: {{ ratings_map[f_exps.id][1] }}</p>
+                                                  <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: {% if ratings_map[f_exps.id][1] > 0 %}
+                                                  {{ ratings_map[f_exps.id][0]/ratings_map[f_exps.id][1] }}
+                                                  <div class="rating">
+                                                    <input type="radio" name="rating_{{f_exps.id}}" value="5" id="5" disabled
+                                                           {% if ratings_map[f_exps.id][2] == 5 %} checked {% endif %}>
+                                                    <label for="5">☆</label>
+                                                    <input type="radio" name="rating_{{f_exps.id}}" value="4" id="4" disabled
+                                                            {% if ratings_map[f_exps.id][2] == 4 %} checked {% endif %}>
+                                                    <label for="4">☆</label>
+                                                    <input type="radio" name="rating_{{f_exps.id}}" value="3" id="3" disabled
+                                                            {% if ratings_map[f_exps.id][2] == 3 %} checked {% endif %}>
+                                                    <label for="3">☆</label>
+                                                    <input type="radio" name="rating_{{f_exps.id}}" value="2" id="2" disabled
+                                                            {% if ratings_map[f_exps.id][2] == 2 %} checked {% endif %}>
+                                                    <label for="2">☆</label>
+                                                    <input type="radio" name="rating_{{f_exps.id}}" value="1" id="1" disabled
+                                                            {% if ratings_map[f_exps.id][2] == 1 %} checked {% endif %}>
+                                                    <label for="1">☆</label>
+                                                </div>
+                                              {% endif %}
+                                              </p>
+                                              {% else %}
+                                                  <p style="margin-bottom: 0;">Number of Ratings: 0</p>
+                                                  <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: -</p>
+                                              {% endif %}
+
+{#                                                <h6 class="mb-0">Rate this experience</h6>#}
+
+                                                <div class="buttons px-4 mt-0">
+                                                    {% if ((f_exps.id not in rated_users_experience_id_map) or (current_username not in rated_users_experience_id_map[f_exps.id])) %}
+                                                        <a href="/rate/experience/{{ f_exps.id }}" class="a_button">
+                                                            Rate
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                         </div>
                         {% endfor %}
                     </div>
-                    
+
                     <div class="tab" id="new_div">
                         {% for experience in experiences %}
                                      <br>
@@ -188,8 +296,8 @@ Home Page
                                         </div>
                         {% endfor %}
                     </div>
-                </div>    
-                
+                </div>
+
                 {% else %}
                 {% for experience in experiences %}
                 <br>
@@ -237,4 +345,5 @@ Home Page
     </script>
 
 {% endblock %}
+
 

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- bootstrap css ref -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/new.scss" rel="stylesheet" >
+</head>
+<body>
+    {% block content %}
+
+    <div class="container_div">
+    <div class="navbar_div">
+      <img src="../static/logo.jpg" alt="" class="logo">
+      <nav>
+          <ul id="menuList">
+            <li>
+                <form action="/login" method="POST">
+                    <button class="nav-btn" >LOGIN</button>
+                </form>
+
+            </li>
+
+          </ul>
+      </nav>
+      <img src="../static/navbar-logo.png" class="menu-icon" onclick="togglemenu()">
+
+    </div>
+
+    <div class="row_div">
+      <div class="col-1">
+        <h2 class="header-1">Crowd Source Travel Planner</h2>
+        <h3>Book your next trip!</h3>
+        <!-- <p>Register now and start exploring.</p> -->
+          <form action="/login" method="POST">
+              <button class="desc-btn">Register Now</button>
+          </form>
+
+    </div>
+
+    <div class="col-2">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNNPel4eFtd3WFlz5b-u0QlJeT0MRRPV99FAI5QjsSlvv0QpBeMaOcClzZVwctt28ZWEqx7jwPJ2qWPnb4Sh07zw_y0U5RlZh0zXeHTRgZffqJ7yINWghLPRjr5jfk_1cupGPknnP0YdSjs7M4qSDG-QtB4u2XZuLGq_0KAOFCuY5clhbRR-RSytmK/s16000/pngegg0258.png" alt="" class="upper">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjj67WwVOyG3nDIDF-7pJyOmlRFADjEayackEpefS2X_lWiH6erOX_w5tPCmGfteB-o8jFgaoIQ-BMC2hHSA5N5fbdMsWs7PhebjwYauDGqXluUiK9DDHl883kiur146GRkfWvfp-a34S1h8U1QuoswMHstFBBAuCHV-FP2TJ4uDvEOtONM4XdrClSt/s1600/png-image.png" alt="" class="plane">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjebVgprvCHdypR1LosN8FqEeW1XX_5d3Pb1L6WScyNF1ebtgmkBbSOfX6dJ84ukcOeX0KbZ6sFRaNdiYTwhJEiNrgKvg1AeuKmDa40aHGWjA8duj6biCkMcK0DdOEnYZI7vRdyPkKYZTAJF5A-Itz5f3w44qk6w7lFn9lB6JWUESyzmScKDremjd_H/s1600/imgbin_cloud-rain-computer-icons-png.png" alt="" class="lower">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiu-WTbOquQxFcLmGLJE9grtKg3h3H3xAb439N6wo_mYDm6VaL9nrwsmgDIQkRE8_-iyJvqidQGHiPfoEuKlS4cCnTShdZzDJ5IPSIliFqsRsKn8bS6Nbkr_HsslxthEIK6DtaL7zGTY4oCJMHc2UfNE4MVmyRNEzyOacPOTKocn5usoQyEV8gZ38lH/s1600/rain-png-34472.png" alt="" class="upper">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNNPel4eFtd3WFlz5b-u0QlJeT0MRRPV99FAI5QjsSlvv0QpBeMaOcClzZVwctt28ZWEqx7jwPJ2qWPnb4Sh07zw_y0U5RlZh0zXeHTRgZffqJ7yINWghLPRjr5jfk_1cupGPknnP0YdSjs7M4qSDG-QtB4u2XZuLGq_0KAOFCuY5clhbRR-RSytmK/s16000/pngegg0258.png" alt="" class="lower">
+    </div>
+    </div>
+
+
+    <section>
+      <div class="shadow"></div>
+
+      <div class="container-1">
+          <div class="content opacity">
+              <h3 class="title">
+                  About
+                  <div class="border"></div>
+              </h3>
+              <p class="text">The Crowd-Sourced Travel Planner is an app that allows users to plan their trips around amazing experiences wherever they go. Users can create their own experiences by adding a title, description, geo-location, image, and rating. Users can also discover new experiences by searching by location or keyword, and viewing them in a list. Users can click on any experience to see more details and rate it. Users can also create their own trips by adding a name and adding experiences to them. Users can view, edit, or delete their trips at any time. </p>
+          </div>
+
+          <div class="imgContainer opacity">
+              <img src="../static/figure.png" alt="" class="about-img">
+          </div>
+      </div>
+  </section>
+  </div>
+
+
+    {% endblock %}
+
+
+
+
+</body>
+</html>
+
+  <script>
+
+
+
+    let menuList = document.getElementById("menuList");
+    menuList.style.maxHeight = "0px"
+    function togglemenu(){
+    if(menuList.style.maxHeight == "0px")
+        {menuList.style.maxHeight = "130px"
+        }
+    else{
+        menuList.style.maxHeight = "0px"
+    }
+}
+
+
+gsap.from('.col-1', 1.2, {opacity: 0, y: -60, delay: 0.5})
+
+
+
+    /*! Canvallax, v1.2.1 (built 2015-11-13) https://github.com/shshaw/Canvallax.js @preserve */
+!function(){function a(a,b){return a.zIndex===b.zIndex?0:a.zIndex<b.zIndex?-1:1}function b(){this.width=this.width?this.width:this.image.width,this.height=this.height?this.height:this.image.height}var c=window,d=document,e=d.documentElement,f=d.body,g=c.requestAnimationFrame||c.mozRequestAnimationFrame||c.webkitRequestAnimationFrame||c.msRequestAnimationFrame||c.oRequestAnimationFrame||function(a){c.setTimeout(a,20)},h=function(){},i={tracking:"scroll",trackingInvert:!1,x:0,y:0,damping:1,canvas:void 0,className:"",parent:document.body,elements:void 0,animating:!0,fullscreen:!0,preRender:h,postRender:h},j=!1,k=0,l=0,m=function(){k=e.scrollLeft||f.scrollLeft,l=e.scrollTop||f.scrollTop},n=!1,o=0,p=0,q=function(a){o=a.touches?a.touches[0].clientX:a.clientX,p=a.touches?a.touches[0].clientY:a.clientY};if(!c.CanvasRenderingContext2D)return c.Canvallax=function(){return!1};c.Canvallax=function s(a){if(!(this instanceof s))return new s(a);var b=this;return s.extend(this,i,a),b.canvas=b.canvas||d.createElement("canvas"),b.canvas.className+=" canvallax "+b.className,b.parent.insertBefore(b.canvas,b.parent.firstChild),b.fullscreen?(b.resizeFullscreen(),c.addEventListener("resize",b.resizeFullscreen.bind(b))):b.resize(b.width,b.height),b.ctx=b.canvas.getContext("2d"),b.elements=[],a&&a.elements&&b.addElements(a.elements),b.damping=!b.damping||b.damping<1?1:b.damping,b.render(),b},Canvallax.prototype={_x:0,_y:0,add:function(b){for(var c=b.length?b:arguments,d=c.length,e=0;d>e;e++)this.elements.push(c[e]);return this.elements.sort(a),this},remove:function(a){var b=this.elements.indexOf(a);return b>-1&&this.elements.splice(b,1),this},render:function(){var a=this,b=0,d=a.elements.length,e=0,f=0,h=a.fullscreen||"pointer"!==a.tracking;for(a.animating&&(a.animating=g(a.render.bind(a))),a.tracking&&("scroll"===a.tracking?(j||(j=!0,m(),c.addEventListener("scroll",m),c.addEventListener("touchmove",m)),a.x=k,a.y=l):"pointer"===a.tracking&&(n||(n=!0,c.addEventListener("mousemove",q),c.addEventListener("touchmove",q)),h||(e=a.canvas.offsetLeft,f=a.canvas.offsetTop,h=o>=e&&o<=e+a.width&&p>=f&&p<=f+a.height),h&&(a.x=-o+e,a.y=-p+f)),a.x=!h||a.trackingInvert!==!0&&"invertx"!==a.trackingInvert?a.x:-a.x,a.y=!h||a.trackingInvert!==!0&&"inverty"!==a.trackingInvert?a.y:-a.y),a._x+=(-a.x-a._x)/a.damping,a._y+=(-a.y-a._y)/a.damping,a.ctx.clearRect(0,0,a.width,a.height),a.preRender(a.ctx,a);d>b;b++)a.ctx.save(),a.elements[b]._render(a.ctx,a),a.ctx.restore();return a.postRender(a.ctx,a),this},resize:function(a,b){return this.width=this.canvas.width=a,this.height=this.canvas.height=b,this},resizeFullscreen:function(){return this.resize(c.innerWidth,c.innerHeight)},play:function(){return this.animating=!0,this.render()},pause:function(){return this.animating=!1,this}},Canvallax.createElement=function(){function a(a){var c=b(a);return a._pointCache&&a._pointChecksum===c||(a._pointCache=a.getTransformPoint(),a._pointChecksum=c),a._pointCache}function b(a){return[a.transformOrigin,a.x,a.y,a.width,a.height,a.size].join(" ")}var c=Math.PI/180,d={x:0,y:0,distance:1,fixed:!1,opacity:1,fill:!1,stroke:!1,lineWidth:!1,transformOrigin:"center center",scale:1,rotation:0,preRender:h,render:h,postRender:h,init:h,crop:!1,getTransformPoint:function(){var a=this,b=a.transformOrigin.split(" "),c={x:a.x,y:a.y};return"center"===b[0]?c.x+=a.width?a.width/2:a.size:"right"===b[0]&&(c.x+=a.width?a.width:2*a.size),"center"===b[1]?c.y+=a.height?a.height/2:a.size:"bottom"===b[1]&&(c.y+=a.height?a.height:2*a.size),c},_render:function(b,d){var e=this,f=e.distance||1,g=d._x,h=d._y,i=a(e);return e.preRender.call(e,b,d),e.blend&&(d.ctx.globalCompositeOperation=e.blend),d.ctx.globalAlpha=e.opacity,d.ctx.translate(i.x,i.y),e.scale===!1?(g*=f,h*=f):d.ctx.scale(f,f),e.fixed||d.ctx.translate(g,h),e.scale!==!1&&d.ctx.scale(e.scale,e.scale),e.rotation&&d.ctx.rotate(e.rotation*c),d.ctx.translate(-i.x,-i.y),e.crop&&(b.beginPath(),"function"==typeof e.crop?e.crop.call(e,b,d):b.rect(e.crop.x,e.crop.y,e.crop.width,e.crop.height),b.clip(),b.closePath()),e.outline&&(b.beginPath(),b.rect(e.x,e.y,e.width||2*e.size,e.height||2*e.size),b.closePath(),b.strokeStyle=e.outline,b.stroke()),e.render.call(e,b,d),this.fill&&(b.fillStyle=this.fill,b.fill()),this.stroke&&(this.lineWidth&&(b.lineWidth=this.lineWidth),b.strokeStyle=this.stroke,b.stroke()),e.postRender.call(e,b,d),e},clone:function(a){var a=Canvallax.extend({},this,a);return new this.constructor(a)}};return function(a){function b(a){return this instanceof b?(Canvallax.extend(this,a),this.init.apply(this,arguments),this):new b(a)}return b.prototype=Canvallax.extend({},d,a),b.prototype.constructor=b,b.clone=b.prototype.clone,b}}(),Canvallax.extend=function(a){a=a||{};var b=arguments.length,c=1;for(1===arguments.length&&(a=this,c=0);b>c;c++)if(arguments[c])for(var d in arguments[c])arguments[c].hasOwnProperty(d)&&(a[d]=arguments[c][d]);return a};var r=2*Math.PI;Canvallax.Circle=Canvallax.createElement({size:20,render:function(a){a.beginPath(),a.arc(this.x+this.size,this.y+this.size,this.size,0,r),a.closePath()}}),Canvallax.Element=Canvallax.createElement(),Canvallax.Image=Canvallax.createElement({src:null,image:null,width:null,height:null,init:function(a){this.image=this.image&&1===this.image.nodeType?this.image:a&&1===a.nodeType?a:new Image,b.bind(this)(),this.image.onload=b.bind(this),this.image.src=this.image.src||a.src||a},render:function(a){this.image&&a.drawImage(this.image,this.x,this.y,this.width,this.height)}});var r=2*Math.PI;Canvallax.Polygon=Canvallax.createElement({sides:6,size:20,render:function(a){var b=this.sides;for(a.translate(this.x+this.size,this.y+this.size),a.beginPath(),a.moveTo(this.size,0);b--;)a.lineTo(this.size*Math.cos(b*r/this.sides),this.size*Math.sin(b*r/this.sides));a.closePath()}}),Canvallax.Rectangle=Canvallax.createElement({width:100,height:100,render:function(a){a.beginPath(),a.rect(this.x,this.y,this.width,this.height),a.closePath()}})}();
+
+    let can = Canvallax({
+        className: 'bg-canvas',
+        damping: 40
+    });
+
+    // Clouds
+(function(){
+
+  ////////////////////////////////////////
+
+
+  let origWidth = width = document.body.clientWidth,
+      origHeight = height = document.body.clientHeight;
+
+  let gradient = Canvallax.Rectangle({
+    width: width * 1.5,
+    height: height * 1.1,
+    zIndex: 1,
+    fill: (function(){
+      let canvas = document.createElement('canvas'),
+          ctx = canvas.getContext('2d'),
+          gradient = ctx.createLinearGradient(0,0,0,height);
+      gradient.addColorStop(0,'#07588A');
+      gradient.addColorStop(1,'#E1F6F4');
+      return gradient;
+    })()
+  });
+
+  can.add(gradient);
+
+  function randomRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+  let stars = [],
+      number = 300,
+      i = 0,
+      distance;
+
+  for (; i < number; i++) {
+    distance = randomRange(0.1,0.3);
+    stars.push(
+      Canvallax.Circle({
+        x: Math.random() * width,
+        y: Math.random() * height * 0.9,
+        distance: distance,
+        size: 4,
+        fill: '#FFF',
+      })
+    );
+  }
+
+  can.add(stars);
+
+  window.addEventListener('resize', function(){
+
+    height = document.body.clientHeight;
+
+    let i = can.elements.length,
+        max = document.body.clientWidth,
+        heightScale = height / origHeight;
+
+    console.log(height,origHeight,heightScale);
+
+    while (i--){
+      can.elements[i].maxX = max; //document.body.clientWidth;
+      can.elements[i].origY = can.elements[i].origY || can.elements[i].y;
+      can.elements[i].y = can.elements[i].origY * heightScale;
+    }
+  });
+
+  ////////////////////////////////////////
+
+  // Adapted from https://bost.ocks.org/mike/algorithms/
+  function bestCandidateSampler(width, height, numCandidates) {
+
+    let samples = [];
+
+    function findDistance(a, b) {
+      let dx = a[0] - b[0],
+          dy = a[1] - b[1];
+      return dx * dx + dy * dy;
+    }
+
+    function findClosest(c){
+      let i = samples.length,
+          sample,
+          closest,
+          distance,
+          closestDistance;
+
+      while(i--){
+        sample = samples[i];
+        distance = findDistance(sample,c);
+
+        if ( !closestDistance || distance < closestDistance ) {
+          closest = sample;
+          closestDistance = distance;
+        }
+      }
+
+      return closest;
+    }
+
+    function getSample() {
+      let bestCandidate,
+          bestDistance = 0,
+          i = 0,
+          c, d;
+
+      c = [Math.random() * width, Math.random() * height];
+
+      if ( samples.length < 1 ) {
+        bestCandidate = c;
+      } else {
+        for (; i < numCandidates; i++) {
+          c = [Math.random() * width, Math.random() * height];
+          d = findDistance(findClosest(c), c);
+
+          if (d > bestDistance) {
+            bestDistance = d;
+            bestCandidate = c;
+          }
+        }
+      }
+
+      samples.push(bestCandidate);
+      //console.log('bestCandidate',bestCandidate);
+      return bestCandidate;
+    }
+
+    getSample.all = function(){ return samples; };
+    getSample.samples = samples;
+
+    return getSample;
+  }
+
+  let getCandidate = bestCandidateSampler(width,height,10);
+
+  let CLOUD_COUNT = 40,
+      CLOUD_WIDTH = 510,
+      CLOUD_HEIGHT = 260;
+
+  CLOUD_COUNT = Math.floor(( width * height ) / (CLOUD_WIDTH * CLOUD_HEIGHT));
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function randomizedCloud(image){
+
+    var canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d'),
+        width = canvas.width = randomRange(400,700), //CLOUD_WIDTH,
+        height = canvas.height = randomRange(200,260),//CLOUD_HEIGHT,
+        w = image.width,
+        h = image.height,
+        halfw = w / 2,
+        halfh = h / 2,
+        i = Math.ceil(randomRange(20,90)), //60
+        flip,
+        randScale,
+        randTex,
+        maxScale = 2.5,
+        fullPi = Math.PI / 2;
+
+    while (i--){
+      randScale = randomRange(0.4,maxScale);
+      ctx.globalAlpha = Math.random() - 0.2;
+      ctx.translate(randomRange(halfw, width - ( w * maxScale * 1.3)),randomRange(halfh + halfh / 4,height - (h* maxScale)));
+      ctx.scale(randScale,randomRange(randScale - 0.3,randScale));
+      ctx.translate(halfw,halfh);
+      ctx.rotate(randomRange(0,fullPi));
+      ctx.drawImage(image, -halfw, -halfh);//, w, h, 0, 0, w, h);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    return canvas;//.toDataURL();
+  }
+
+  let cloudImg = new Image();
+
+  cloudImg.addEventListener('load',function(){
+
+    let i = CLOUD_COUNT, //Math.ceil(CLOUD_COUNT * 0.5),
+        el, rand, pos, tex;
+
+    while(i--) {
+      rand = randomRange(0.4, 1.2);
+      pos = getCandidate();
+      tex = randomizedCloud(cloudImg);
+
+      cloud = Canvallax.Image({
+        image: tex,
+        width: tex.width,
+        height: tex.height,
+        //init: function(){},
+
+        zIndex: rand * 13,
+        x: pos[0],
+        y: pos[1],
+        opacity: (rand < 0.8 ? 0.8 : rand ),
+        distance: rand,
+
+        maxX: width,
+        speed: rand * randomRange(0.2,0.4),
+        postRender: function(){
+          this.x = (this.x * this.distance) > -this.width ? this.x - this.speed : this.maxX + (this.width * 2) ;
+        }
+      });
+
+      can.add(cloud);
+    }
+
+    can.render();
+  });
+
+  cloudImg.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAMAAABG8BK2AAAAYFBMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8GYpHzAAAAIHRSTlMAAwcLDxIWGh8kKzI5QEhPVl9qc3uEi5Sdpa64wcrV4c6KdP8AAAOeSURBVHgBndQJkvM8DoNhS+nv/ieONBH8FIs1nb83ZLfF1wBFZ17vNMZ8fPz79/GY46Xre8F85kRzzhdk/A2TOpSARpF/g0mdaI8XZjg47leA32Jo3wbEooNE/SFGrPOAiPxC+xaDAxBTxQqFoW8wGGof89E4j8nQUceo621h/KY8GuXx4Mg10vRZlPd55JCEnXlIQX7cE8pNp8Dob4oY8LjZTny8QEMo2o2hSqT5YImxchVNbpgZ3oVR4xVUgOlGS5fFKCPSWDY4Yu1xIKyEEqLfE0UUKcoJ9MFVsAhnaOpEGW4gyxFyLitOeRhZO8NJur1hKpWWCV03oaG9yYcYXvD7UPbetVOMNwqlWH6/b7sp29G1Z5g6LFGaY9uYB2A6M7evtVco3U3M1CCopOlNY8Q7cdZahxIMTpv7meR2NghWDqdu8MTZzwMqN+RaBkmdUgf7wMfN1d1cNSAFMdhQ3tLXu2STuclylwYL5QYhsGyLz499bcgxK1F5SmumvaoRrIwSjYutaGbVZIgze6wegLO6i8MD2kJ1N1cYKAUXTLnRWxtnYrMONWRRD+EsA3utw4mnKxNCZRgplK5T05ycvaaZCmtAOEKl+p4ge70k06mcdrQoPgGpbY1EboNyY7/ZHVsfK1BLhBAdCA5MGd719b0gUOJmg9vc5hf3E+K2y1EQDnCjxoGs3t84WiA6zI253rVy6MRnSKNxJtQcRY3xL90MkN6DYGZHI3zBMaF1NcoUQ3Oll+9RBqHb1uIzSTmv9LtQOJbC7Ci/fRsivh0+sBrYwix3GKe8No5yHJTDaZqhqOp8KC6BdmXrFKFaXUUWk7uCLsRPbuAZrmsPjCANBKChIZj/97IBzSJq3pgpymiYRmnxMLG9YbinUGCk5rxbUhJDy/yH+C5U3wP1FQWDL5AtWpNQm0IRz/ys+psCTSKuCObTjY3KhLoCrbUY7ZgIqHRXrTSFHxwfFjcM1fWF8devtJPK2XtM6nAOpcrCXDlVR967qRi6XOY78NJsi95gcsJynMXF2k6gAFFhVFGLz0loz5u0HGoEGF6qOoVgC6cOB6iBb0Ixue66p+p8F+v17VkhUTqGXP6pVptC8JU07z0Ga5VqjmUpvBvuC8wpej4bJiXK+ZHnazfXyfUSipxPVJQvMTjppUKlFUVvv8PIVftrSIRD+Q6DQ7a47wzE9xjaYJk1Fty1v8CYauOLm+fv3Cikjv4lBqVCAP6n/gfZhdXQlm1mfwAAAABJRU5ErkJggg==';
+
+})();
+    </script>
+
+
+
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Poppins:wght@400;500;700&display=swap");
+* {
+  margin: 0px;
+  padding:0;
+
+}
+
+canvas { display: block; margin: 2em; }
+
+.bg-canvas{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+body {
+  {#background-image: linear-gradient(to top, lighten(#97a8c0,20%) 40%, #97a8c0 80%) !important;#}
+  background-image: linear-gradient(to top, #d7dde6 40%, #97a8c0 80%) !important;
+  background-size: cover;
+}
+
+.container_div {
+  width: 100% !important;
+  min-height: 100vh;
+  padding-left: 8%;
+  padding-right: 8%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+}
+
+.navbar_div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 50px;
+  cursor: pointer;
+  margin: 30px 0;
+
+}
+
+.menu-icon {
+  width:25px;
+  cursor: pointer;
+  display: none;
+}
+
+nav {
+  flex: 1;
+  text-align: right;
+}
+
+nav ul li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 30px;
+  margin-top: -20px;
+  position: initial;
+}
+
+.row_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+
+.col-1 {
+  flex-basis: 40%;
+  position: relative;
+  margin-left: 50px;
+}
+
+.col-1 h2 {
+  font-size:4.00rem;
+  font-family: "Lora", serif;
+  color: hsl(210, 52%, 20%);
+  margin: 50px 0 10px
+}
+
+.col-1 h3 {
+  font-size: 30px;
+  color: #707070;
+  font-weight: 100;
+  margin: 20px 0 10px;
+  color: hsl(0, 0%, 100%);
+
+
+}
+
+
+.nav-btn{
+  background-color: hsla(0, 0%, 100%, .3);
+  padding: 1rem 2.5rem;
+  border: 2px solid hsl(210, 52%, 20%);
+  border-radius: .75rem;
+  cursor: pointer;
+  transition: width 0.5s;
+  width: 140px;
+
+}
+
+.nav-btn:hover{
+  width: 150px;
+
+}
+
+.col-1::after {
+  content: "";
+  width:10px;
+  height: 130px;
+  background: linear-gradient(90deg,
+  hsl(210, 55%, 20%),
+  hsl(192, 62%, 25%));
+  position:absolute;
+  left: -40px;
+  top: 70px;
+}
+
+.desc-btn {
+  width: 140px;
+  border: 0;
+  padding: 12px 10px;
+  outline: none;
+  color: #fff;
+  background: linear-gradient(90deg,
+  hsl(210, 55%, 20%),
+  hsl(192, 62%, 25%));
+  border-radius: 6px;
+  cursor: pointer;
+  transition: width 0.5s;
+}
+
+.desc-btn:hover {
+  width: 150px;
+}
+
+
+.col-2{
+  position: relative;
+  flex-basis: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.col-2 .plane {
+  width: 100%;
+  position: absolute;
+  margin-top: -70px;
+
+}
+
+.plane {
+  animation:move-plane 5s infinite linear;
+  filter:drop-shadow (0px 5px 10px rgba(0,0,0,0.5));
+}
+
+.upper
+{
+  opacity:0.5;
+  width:40%;
+  margin:20px;
+  right:-750px;
+  top:50px;
+  animation:move-cloud-under 20s infinite linear;
+  position: relative;
+}
+.lower
+{
+  opacity:0.5;
+  width:40%;
+  right:-200px;
+  bottom:90px;
+  animation:move-cloud-under 25s infinite linear;
+  position: relative;
+}
+
+@keyframes move-plane
+{
+  0%
+  {
+    top:60px;
+  }
+  50%
+  {
+    top:30px;
+  }
+  100%
+  {
+    top:60px;
+  }
+}
+
+@keyframes move-cloud-under
+{
+  0%
+  {
+    left:300px;
+  }
+  100%
+  {
+    left:-1000px;
+  }
+}
+
+
+@media only screen and (max-width: 700px) {
+    nav ul {
+        width: 100%;
+        background: hsla(0, 0%, 100%, .3);
+        position: absolute;
+        top: 75px;
+        right: 0;
+        z-index: 2;
+    }
+
+    nav ul li {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+    .menu-icon {
+    display: block;
+  }
+
+    #menuList {
+    overflow: hidden;
+    transition: 0.5s;
+  }
+
+    .nav-btn {
+    color:#000000 !important;
+  }
+  .nav-btn:hover{
+    width: 160px !important;
+
+  }
+
+  nav ul li .nav-btn {
+    color: #fff;
+  }
+
+   .row_div {
+    flex-direction: column-reverse;
+    margin: 50px 0;
+  }
+
+  .col-2 {
+    flex-basis: 100%;
+    margin-bottom: 50px;
+  }
+
+  .col-2 .plane {
+    width: 250px;
+    margin-left: -100px;
+  }
+
+    .col-1 {
+      flex-basis: 100%;
+    }
+
+    .col-1 h2{
+      font-size: 35px;
+    }
+
+    .col-1 h3{
+      font-size: 15px;
+    }
+
+
+}
+
+
+section {
+  margin-top: 200px;
+  width: 100%;
+}
+
+section .container-1{
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+section .about-img{
+  width: 100%;
+
+}
+
+section .container-1 > *{
+  margin: 2rem;
+}
+
+.content{
+
+    color: black;
+  {#color: hsl(195, 100%, 30%)#}
+  /* transform: translateY(-50px); */
+}
+
+.title{
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  position: relative;
+}
+
+{#.border{#}
+{#  position: absolute;#}
+{#  width: 30%;#}
+{#  height: 5px;#}
+{#  background-color: black;#}
+{#  bottom: 0;#}
+{#  left: 0;#}
+{# #}
+{#}#}
+
+
+
+</style>
+
