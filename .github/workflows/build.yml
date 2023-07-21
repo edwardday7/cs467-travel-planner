@@ -14,7 +14,7 @@ jobs:
         run: docker build -f ${{ github.workspace }}/Dockerfile -t test-app .
 
       - name: Docker Run
-        run: docker run -p 80:80 -e DB_USER=${{ secrets.DB_USER }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_NAME=project test-app &
+        run: docker run -p 80:80 -e AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} -e DB_USER=${{ secrets.DB_USER }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_NAME=project test-app &
 
       - name: Wait for App Startup
         run: sleep 5

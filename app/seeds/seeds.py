@@ -54,7 +54,7 @@ def seed_data():
         longitude=-80.6490,
         state="Florida",
         country="United States",
-        image="image1.jpg",
+        image="https://osucapstone.blob.core.windows.net/images/kennedy-space-center-florida_18000_xl-2795190506.jpg",
         rating=4.5
     )
     experience2 = Experience(
@@ -65,7 +65,7 @@ def seed_data():
         longitude=-106.6504,
         state="New Mexico",
         country="United States",
-        image="image2.jpg",
+        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
         rating=3.8
     )
 
@@ -77,7 +77,7 @@ def seed_data():
         longitude=2.2945,
         state="Ile-de-France",
         country="France",
-        image="image3.jpg",
+        image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
         rating=3.8
     )
 
