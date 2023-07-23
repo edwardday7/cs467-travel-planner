@@ -99,6 +99,11 @@ def experiences():
 
     return render_template('experiences.html', experiences=experiences)
 
+@app.route('/experience/<int:experience_id>', methods=['GET'])
+def experience_detail(experience_id):
+    experience = Experience.query.get_or_404(experience_id)
+    return render_template('experience_detail.html', experience=experience)
+
 @app.route('/health')
 def health():
     return jsonify({'status': 'ok'}), 200

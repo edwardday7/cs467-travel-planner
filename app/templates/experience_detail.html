@@ -1,0 +1,27 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Experience Details
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<body>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 mx-auto">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ experience.title }}</h5>
+                <p class="card-text">{{ experience.description }}</p>
+                <p><strong>Location:</strong> {{ experience.latitude }}, {{ experience.longitude }}</p>
+                <p><strong>State:</strong> {{ experience.state }}</p>
+                <p><strong>Country:</strong> {{ experience.country }}</p>
+                <p><strong>Time Created:</strong> {{ experience.time_created }}</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

@@ -42,13 +42,15 @@ Experiences
       <div class="row">
           {% for experience in experiences %}
           <div class="col-sm-4">
-              <div class="card mb-4">
-                  <div class="card-body">
-                      <h5 class="card-title">{{ experience.title }}</h5>
-                      <p class="card-text">{{ experience.description }}</p>
-                  </div>
-              </div>
-          </div>
+            <a href="{{ url_for('experience_detail', experience_id=experience.id) }}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ experience.title }}</h5>
+                        <p class="card-text">{{ experience.description }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>        
           {% endfor %}
       </div>
   </div>
