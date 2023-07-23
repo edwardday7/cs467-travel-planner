@@ -3,6 +3,32 @@ from flask import make_response, redirect, render_template, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db, container_client
 from app.models.models import Experience
+from sqlalchemy import desc, or_
+
+@app.route('/experiences', methods=['GET'])
+def experiences():
+    search = request.args.get('q')
+    sort = request.args.get('sort')
+    
+    if search:
+        experiences = Experience.query.filter(or_(Experience.title.contains(search), Experience.description.contains(search)))
+    else:
+        experiences = Experience.query
+
+    #this is borked
+    if sort == 'highest_rating':
+        experiences = experiences.order_by(Experience.rating.desc())
+    elif sort == 'lowest_rating':
+        experiences = experiences.order_by(Experience.rating.asc())
+
+    experiences = experiences.all()
+
+    return render_template('experiences.html', experiences=experiences)
+
+@app.route('/experience/<int:experience_id>', methods=['GET'])
+def experience_detail(experience_id):
+    experience = Experience.query.get_or_404(experience_id)
+    return render_template('experience_detail.html', experience=experience)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
 @jwt_required()
