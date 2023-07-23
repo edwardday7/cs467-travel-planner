@@ -43,7 +43,7 @@ Experiences
         {% for experience, average_rating in experiences %}
         <div class="col-sm-4">
           <a href="{{ url_for('experience_detail', experience_id=experience.id) }}">
-            <div class="card mb-4">
+            <div class="card mb-4 grow">
               <div class="card-body">
                 <h5 class="card-title">{{ experience.title }}</h5>
                 <p class="card-text">Average rating: {{ average_rating|round(1) }}</p>
@@ -57,4 +57,14 @@ Experiences
   </div>
     
 </body>
+
+<style>
+  .grow {
+  transition: transform 0.1s;
+}
+
+.grow:hover {
+  transform: scale(1.03);
+}
+</style>
 {% endblock %}
