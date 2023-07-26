@@ -29,7 +29,6 @@ def experiences():
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):
     experience = Experience.query.get_or_404(experience_id)
-    print(to_shape(experience.coordinates).x)
     return render_template('experience_detail.html', experience=experience, to_shape=to_shape)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
