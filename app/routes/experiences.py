@@ -4,6 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db, container_client
 from app.models.models import Experience
 from sqlalchemy import desc, or_
+from geoalchemy2.shape import to_shape
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
@@ -28,7 +29,8 @@ def experiences():
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):
     experience = Experience.query.get_or_404(experience_id)
-    return render_template('experience_detail.html', experience=experience)
+    print(to_shape(experience.coordinates).x)
+    return render_template('experience_detail.html', experience=experience, to_shape=to_shape)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
 @jwt_required()
