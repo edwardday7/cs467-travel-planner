@@ -1,6 +1,7 @@
 import uuid
 from flask import make_response, redirect, render_template, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from geoalchemy2 import WKTElement
 from app import app, db, container_client
 from app.models.models import Experience
 from sqlalchemy import desc, or_
@@ -41,8 +42,7 @@ def create_experience():
             user_username=get_jwt_identity(),
             title=request.form.get('title'),
             description=request.form.get('description'),
-            latitude=float(request.form.get('latitude')),
-            longitude=float(request.form.get('longitude')),
+            coordinates=WKTElement(f'POINT({float(request.form.get("latitude"))} {float(request.form.get("longitude"))})'),
             state=request.form.get('state'),
             country=request.form.get('country'),
             image=upload_file(request.files.get('file')).url  # blob_client.url
