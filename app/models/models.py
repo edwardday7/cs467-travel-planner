@@ -22,7 +22,12 @@ class Experience(db.Model):
 
 class Trip(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    trip_name = db.Column(db.String(255))
     user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
+
+class TripExperience(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trip.id'), nullable=False)
     experience_id = db.Column(db.Integer, db.ForeignKey('experience.id'), nullable=False)
 
 class Rating(db.Model):

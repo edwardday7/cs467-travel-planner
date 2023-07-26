@@ -135,7 +135,7 @@ Home Page
     width: 250px;
     height: 35px;
     background: #4E9CAF;
-    padding: 10px;
+    padding-top: 5px;
     text-align: center;
     border-radius: 5px;
     color: white;
@@ -173,28 +173,10 @@ Home Page
     opacity: 0
 }
 
-{#.rating>label:hover:before,#}
-{#.rating>label:hover~label:before {#}
-{#    opacity: 1 !important#}
-{#}#}
-
 .rating>input:checked~label:before {
     opacity: 1
 }
 
-{#.rating:hover>input:checked~label:before {#}
-{#    opacity: 0.4#}
-{#}#}
-{##}
-{#.rating-submit{#}
-{#	border-radius: 15px;#}
-{#	color: #fff;#}
-{#    height: 49px;#}
-{#}#}
-{##}
-{#.rating-submit:hover{#}
-{#	color: #fff;#}
-{#}#}
 @media screen and (max-width: 768px) {
     .container {
         padding:0;
@@ -266,8 +248,6 @@ Home Page
                                                   <p style="margin-bottom: 0;">Number of Ratings: 0</p>
                                                   <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: -</p>
                                               {% endif %}
-
-{#                                                <h6 class="mb-0">Rate this experience</h6>#}
 
                                                 <div class="buttons px-4 mt-0">
                                                     {% if ((f_exps.id not in rated_users_experience_id_map) or (current_username not in rated_users_experience_id_map[f_exps.id])) %}

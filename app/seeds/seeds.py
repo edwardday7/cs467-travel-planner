@@ -1,7 +1,7 @@
 # seed.py
 import bcrypt
 from ..app_instance import app, db
-from ..models.models import User, Follower, Experience, Trip, Rating
+from ..models.models import User, Follower, Experience, Trip, Rating, TripExperience
 from ..routes.auth import create_password
 
 def seed_data():
@@ -98,15 +98,45 @@ def seed_data():
 
     # Create test trips
     trip1 = Trip(
-        user_username=user1.username,
-        experience_id=experience1.id
+        trip_name="Summer Trip",
+        user_username=user1.username
     )
     trip2 = Trip(
-        user_username=user2.username,
-        experience_id=experience2.id
+        trip_name="Winter Trip",
+        user_username=user2.username
     )
+
+    trip3 = Trip(
+        trip_name="Autumn Trip",
+        user_username=user1.username
+    )
+
     db.session.add(trip1)
     db.session.add(trip2)
+    db.session.add(trip3)
+
+    db.session.commit()
+
+    # Add experiences to the test trips
+    trip1_experience_1 = TripExperience(
+        trip_id=trip1.id,
+        experience_id=experience1.id
+    )
+
+    trip1_experience_2 = TripExperience(
+        trip_id=trip1.id,
+        experience_id=experience2.id
+    )
+
+    trip2_experience_2 = TripExperience(
+        trip_id=trip2.id,
+        experience_id=experience2.id
+    )
+    db.session.add(trip1_experience_1)
+    db.session.add(trip1_experience_2)
+    db.session.add(trip2_experience_2)
+
+    db.session.commit()
 
     # Create test ratings
     rating1 = Rating(
