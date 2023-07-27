@@ -16,6 +16,8 @@ app.config['JWT_TOKEN_LOCATION'] = ["cookies"]
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 jwt = JWTManager(app)
 
+mapbox_token = os.environ.get("MAPBOX_TOKEN")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_HOST')}/{os.environ.get('DB_NAME')}"
 db = SQLAlchemy(app)
 
