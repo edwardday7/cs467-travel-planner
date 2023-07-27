@@ -5,6 +5,8 @@ from geoalchemy2 import WKTElement
 from app import app, db, container_client
 from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_
+from geoalchemy2.shape import to_shape
+from geoalchemy2 import WKTElement
 import os
 
 from sqlalchemy.sql import func
