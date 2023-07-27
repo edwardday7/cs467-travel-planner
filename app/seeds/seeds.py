@@ -3,6 +3,7 @@ import bcrypt
 from ..app_instance import app, db
 from ..models.models import User, Follower, Experience, Trip, Rating
 from ..routes.auth import create_password
+from geoalchemy2 import WKTElement
 
 def seed_data():
     db.drop_all()
@@ -62,8 +63,7 @@ def seed_data():
         user_username=user1.username,
         title="Kennedy Space Center",
         description="Its out of this world!",
-        latitude=28.5729,
-        longitude=-80.6490,
+        coordinates=WKTElement(f'POINT({28.5729} {-80.6490})'),
         state="Florida",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/kennedy-space-center-florida_18000_xl-2795190506.jpg",
@@ -72,8 +72,7 @@ def seed_data():
         user_username=user2.username,
         title="Balloon Fiesta",
         description="Balloon Fiesta in Albuquerque NM!",
-        latitude=35.0844,
-        longitude=-106.6504,
+        coordinates=WKTElement(f'POINT({35.0844} {-106.6504})'),
         state="New Mexico",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
@@ -83,8 +82,7 @@ def seed_data():
         user_username=user3.username,
         title="Eiffel Tower",
         description="Tall and pointy!",
-        latitude=48.8584,
-        longitude=2.2945,
+        coordinates=WKTElement(f'POINT({48.8584} {2.2945})'),
         state="Ile-de-France",
         country="France",
         image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
