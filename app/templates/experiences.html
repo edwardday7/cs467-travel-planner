@@ -64,14 +64,13 @@ Experiences
   </div> 
 </body>
 
-
 <script>
   mapboxgl.accessToken = '{{ mapbox_token }}';
   var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
     center: [-74.5, 40], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    zoom: 0.1 // starting zoom
   });
 
   var experiences = {{ experiences|tojson|safe }};
@@ -79,11 +78,10 @@ Experiences
   experiences.forEach(function(experience) {
     new mapboxgl.Marker()
       .setLngLat([experience.longitude, experience.latitude])
-      .setPopup(new mapboxgl.Popup().setHTML("<h3>" + experience.title + "</h3><p>" + experience.description + "</p>"))
+      .setPopup(new mapboxgl.Popup().setHTML("<h3>" + experience.title + "</h3><p>" + experience.description + "</p><button onclick=\"window.location.href='/experience/" + experience.id + "'\" class='btn btn-primary'>View Experience</button>"))
       .addTo(map);
   });
 </script>
-
 
 <style>
   .grow {
