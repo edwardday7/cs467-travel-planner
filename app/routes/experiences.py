@@ -9,11 +9,14 @@ from geoalchemy2.shape import to_shape
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
-    search = request.args.get('q')
+    keyword_search = request.args.get('keyword')
+    location_search = request.args.get('location')
     sort = request.args.get('sort')
     
-    if search:
-        experiences = Experience.query.filter(or_(Experience.title.contains(search), Experience.description.contains(search)))
+    if keyword_search:
+        experiences = Experience.query.filter(or_(Experience.title.contains(keyword_search), Experience.description.contains(keyword_search)))
+    elif location_search:
+        experiences = Experience.query.filter(or_(Experience.title.contains(keyword_search), Experience.description.contains(keyword_search)))
     else:
         experiences = Experience.query
 
