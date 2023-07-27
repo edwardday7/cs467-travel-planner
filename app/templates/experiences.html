@@ -42,7 +42,6 @@ Experiences
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <!-- Scrollable experiences container -->
         <div style="height: 80vh; overflow-y: auto;">
           {% for experience in experiences %}
           <a href="{{ url_for('experience_detail', experience_id=experience.id) }}">
@@ -67,21 +66,25 @@ Experiences
 <script>
   mapboxgl.accessToken = '{{ mapbox_token }}';
   var map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/streets-v11', // style URL
-    center: [-74.5, 40], // starting position [lng, lat]
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-74.5, 40],
     zoom: 0.1 // starting zoom
   });
 
   var experiences = {{ experiences|tojson|safe }};
 
   experiences.forEach(function(experience) {
+    var coordinates = experience.coordinates.coordinates.reverse();
+
     new mapboxgl.Marker()
-      .setLngLat([experience.longitude, experience.latitude])
+      .setLngLat(coordinates)
       .setPopup(new mapboxgl.Popup().setHTML("<h3>" + experience.title + "</h3><p>" + experience.description + "</p><button onclick=\"window.location.href='/experience/" + experience.id + "'\" class='btn btn-primary'>View Experience</button>"))
       .addTo(map);
   });
 </script>
+
+
 
 <style>
   .grow {

@@ -1,3 +1,4 @@
+import json
 import uuid
 from flask import make_response, redirect, render_template, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
@@ -9,7 +10,7 @@ from geoalchemy2.shape import to_shape
 from geoalchemy2 import WKTElement
 import os
 
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
@@ -19,12 +20,12 @@ def experiences():
     sort = request.args.get('sort')
 
     if search:
-        experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating')).\
+        experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating'), func.ST_AsGeoJSON(Experience.coordinates).label('coordinates')).\
                       outerjoin(Rating, Experience.id == Rating.experience_id).\
                       group_by(Experience.id).\
                       filter(or_(Experience.title.contains(search), Experience.description.contains(search)))
     else:
-        experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating')).\
+        experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating'), func.ST_AsGeoJSON(Experience.coordinates).label('coordinates')).\
                       outerjoin(Rating, Experience.id == Rating.experience_id).\
                       group_by(Experience.id)
     if sort == 'highest_rating':
@@ -35,13 +36,12 @@ def experiences():
     experiences = experiences.all()
 
     experiences_data = []
-    for experience, average_rating in experiences:
+    for experience, average_rating, coordinates in experiences:
         experiences_data.append({
             'id': experience.id,
             'title': experience.title,
             'description': experience.description,
-            'latitude': experience.latitude,
-            'longitude': experience.longitude,
+            'coordinates': json.loads(coordinates),
             'average_rating': average_rating
     })
 
