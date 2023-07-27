@@ -14,7 +14,7 @@ Experience Details
             <div class="card-body">
                 <h5 class="card-title">{{ experience.title }}</h5>
                 <p class="card-text">{{ experience.description }}</p>
-                <p><strong>Location:</strong> {{ experience.latitude }}, {{ experience.longitude }}</p>
+                <p><strong>Location:</strong> {{ to_shape(experience.coordinates).x }}, {{ to_shape(experience.coordinates).y }}</p>
                 <p><strong>State:</strong> {{ experience.state }}</p>
                 <p><strong>Country:</strong> {{ experience.country }}</p>
                 <p><strong>Time Created:</strong> {{ experience.time_created }}</p>
