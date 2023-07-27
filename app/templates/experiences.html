@@ -8,62 +8,8 @@ Experiences
 {% include 'navbar.html' %}
 <body>
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <div class="card mb-3">
-          <h5 class="card-header">Search</h5>
-          <div class="ms-3 me-3">
-            <form action="/experiences" method="get" class="mb-4">
-              <div class="row">
-                <div class="col">
-                  <div class="input-group mt-3">
-                    <input type="search" class="form-control" id="search-input" name="keyword" placeholder="Experience name or description" aria-label="Search">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col ms-1 mt-1 mb-1">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Use current location
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Search radius" placeholder="Search radius">
-                    <span class="input-group-text">miles</span>
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col-md-1 mb-3 me-4">
-                  <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Sort
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="/experiences?sort=highest_rating">Highest Rating</a>
-                      <a class="dropdown-item" href="/experiences?sort=lowest_rating">Lowest Rating</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col mb-3">
-                  <a href="/experiences" class="btn btn-danger">Clear Search</a>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-md-4">
         <div style="height: 80vh; overflow-y: auto;">
@@ -80,7 +26,55 @@ Experiences
           {% endfor %}
         </div>
       </div>
-      <div class="col-md-8">    
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <h5 class="card-header">Search</h5>
+          <div class="ms-3 me-3">
+            <form action="/experiences" method="get" class="mb-4">
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mt-3">
+                    <input type="search" class="form-control" id="search-input" name="keyword" placeholder="Experience name or description" aria-label="Search">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  <input type="search" class="form-control" id="search-input" name="keyword" placeholder="Latitude" aria-label="Search">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  <input type="search" class="form-control" id="search-input" name="keyword" placeholder="Longitude" aria-label="Search">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3 mt-2">
+                    <input type="text" class="form-control" aria-label="Search radius" placeholder="Search radius">
+                    <span class="input-group-text">miles</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-md-1 me-4">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Sort
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="/experiences?sort=highest_rating">Highest Rating</a>
+                      <a class="dropdown-item" href="/experiences?sort=lowest_rating">Lowest Rating</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <a href="/experiences" class="btn btn-danger">Clear Search</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div id="map" style="width: 100%; height: 50vh;"></div>
       </div>
     </div>
