@@ -1,4 +1,5 @@
 from app import db
+from geoalchemy2 import Geometry
 
 class User(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
@@ -13,8 +14,7 @@ class Experience(db.Model):
     user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     title = db.Column(db.String(255))
     description = db.Column(db.Text)
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
+    coordinates = db.Column(Geometry('POINT'))
     state = db.Column(db.String(100))
     country = db.Column(db.String(100))
     image = db.Column(db.String(255))

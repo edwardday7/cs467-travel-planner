@@ -236,8 +236,8 @@ Home Page
                                               <h5 class="card-title">{{ f_exps.title }}</h5>
                                               <h6 class="card-subtitle mb-2 text-muted">Created by: {{ f_exps.user_username }}</h6>
                                               <p class="card-text">{{f_exps.description}}</p>
-                                              <a href= "{{ url_for('map', lat = f_exps.latitude, long = f_exps.longitude, name = f_exps.title) }}" class="card-link">OpenMaps</a>
-                                              <a href="https://www.google.com/maps/search/?api=1&query={{ f_exps.latitude}},{{ f_exps.longitude}}" class="card-link">Google Maps</a>
+                                              <a href= "{{ url_for('map', lat = to_shape(f_exps.coordinates).x, long = to_shape(f_exps.coordinates).y, name = f_exps.title) }}" class="card-link">OpenMaps</a>
+                                              <a href="https://www.google.com/maps/search/?api=1&query={{ to_shape(f_exps.coordinates).x }},{{ to_shape(f_exps.coordinates).y }}" class="card-link">Google Maps</a>
 {#                                              <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>#}
                                               {% if f_exps.id in ratings_map %}
                                                   <p style="margin-bottom: 0;">Number of Ratings: {{ ratings_map[f_exps.id][1] }}</p>
@@ -289,8 +289,8 @@ Home Page
                                               <h5 class="card-title">{{ experience.title }}</h5>
                                               <h6 class="card-subtitle mb-2 text-muted">Created by: {{ experience.user_username }}</h6>
                                               <p class="card-text">{{experience.description}}</p>
-                                              <a href= "{{ url_for('map', lat = experience.latitude, long = experience.longitude, name = experience.title) }}" class="card-link">OpenMaps</a>
-                                              <a href="https://www.google.com/maps/search/?api=1&query={{ experience.latitude}},{{ experience.longitude}}" class="card-link">Google Maps</a>
+                                              <a href= "{{ url_for('map', lat = to_shape(experience.coordinates).x, long = to_shape(experience.coordinates).y, name = experience.title) }}" class="card-link">OpenMaps</a>
+                                              <a href="https://www.google.com/maps/search/?api=1&query={{ to_shape(experience.coordinates).x }},{{ to_shape(experience.coordinates).y }}" class="card-link">Google Maps</a>
                                               <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
                                             </div>
                                         </div>
@@ -306,8 +306,8 @@ Home Page
                          <h5 class="card-title">{{ experience.title }}</h5>
                          <h6 class="card-subtitle mb-2 text-muted">Created by: {{ experience.user_username }}</h6>
                          <p class="card-text">{{experience.description}}</p>
-                         <a href= "{{ url_for('map', lat = experience.latitude, long = experience.longitude, name = experience.title) }}" class="card-link">OpenMaps</a>
-                         <a href="https://www.google.com/maps/search/?api=1&query={{ experience.latitude}},{{ experience.longitude}}" class="card-link">Google Maps</a>
+                         <a href= "{{ url_for('map', lat = to_shape(experience.coordinates).x, long = to_shape(experience.coordinates).y, name = experience.title) }}" class="card-link">OpenMaps</a>
+                         <a href="https://www.google.com/maps/search/?api=1&query={{ to_shape(experience.coordinates).x }},{{ to_shape(experience.coordinates).y }}" class="card-link">Google Maps</a>
                          <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
                        </div>
                    </div>
