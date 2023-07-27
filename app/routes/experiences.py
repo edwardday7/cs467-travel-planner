@@ -5,12 +5,14 @@ from geoalchemy2 import WKTElement
 from app import app, db, container_client
 from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_
-from geoalchemy2.shape import to_shape
+import os
 
 from sqlalchemy.sql import func
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
+    
+    mapbox_token = os.environ.get("MAPBOX_TOKEN")
     search = request.args.get('q')
     sort = request.args.get('sort')
 
@@ -30,7 +32,18 @@ def experiences():
 
     experiences = experiences.all()
 
-    return render_template('experiences.html', experiences=experiences)
+    experiences_data = []
+    for experience, average_rating in experiences:
+        experiences_data.append({
+            'id': experience.id,
+            'title': experience.title,
+            'description': experience.description,
+            'latitude': experience.latitude,
+            'longitude': experience.longitude,
+            'average_rating': average_rating
+    })
+
+    return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token)
 
 
 @app.route('/experience/<int:experience_id>', methods=['GET'])
