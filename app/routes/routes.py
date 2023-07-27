@@ -6,7 +6,6 @@ from sqlalchemy import desc, or_
 from statistics import mean
 import folium
 from sqlalchemy import and_
-from geoalchemy2.shape import to_shape
 
 @app.route('/')
 @jwt_required(optional=True)
@@ -59,8 +58,7 @@ def home():
        return render_template('home.html', experiences=new_exp, f_exp = follower_exp, current_user = True,
                               current_username=current_user,
                               ratings_map=total_ratings_number_of_ratings_map_by_experience_id,
-                              rated_users_experience_id_map=rated_users_experience_id_map, 
-                              to_shape=to_shape)
+                              rated_users_experience_id_map=rated_users_experience_id_map)
 
 @app.route('/map/<float:lat>/<long>/<string:name>')
 @jwt_required(optional=True)
