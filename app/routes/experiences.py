@@ -7,7 +7,6 @@ from app import app, db, container_client
 from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_, func
 from geoalchemy2.shape import to_shape
-from geoalchemy2 import WKTElement
 import os
 
 from sqlalchemy.sql import func, text
@@ -76,7 +75,7 @@ def create_experience():
             user_username=get_jwt_identity(),
             title=request.form.get('title'),
             description=request.form.get('description'),
-            coordinates=WKTElement(f'POINT({float(request.form.get("latitude"))} {float(request.form.get("longitude"))})'),
+            coordinates=WKTElement(f'POINT({float(request.form.get("latitude"))} {float(request.form.get("longitude"))})', srid=4326),
             state=request.form.get('state'),
             country=request.form.get('country'),
             image=upload_file(request.files.get('file')).url  # blob_client.url

@@ -112,7 +112,7 @@ Experiences
   var experiences = {{ experiences|tojson|safe }};
 
   experiences.forEach(function(experience) {
-    var coordinates = experience.coordinates.coordinates; //.reverse();
+    var coordinates = experience.coordinates.coordinates;
 
     new mapboxgl.Marker()
       .setLngLat(coordinates)
