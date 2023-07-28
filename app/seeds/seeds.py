@@ -63,7 +63,7 @@ def seed_data():
         user_username=user1.username,
         title="Kennedy Space Center",
         description="Its out of this world!",
-        coordinates=WKTElement(f'POINT({28.5729} {-80.6490})'),
+        coordinates=WKTElement(f'POINT({28.5729} {-80.6490})', srid=4326),
         state="Florida",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/kennedy-space-center-florida_18000_xl-2795190506.jpg",
@@ -72,7 +72,7 @@ def seed_data():
         user_username=user2.username,
         title="Balloon Fiesta",
         description="Balloon Fiesta in Albuquerque NM!",
-        coordinates=WKTElement(f'POINT({35.0844} {-106.6504})'),
+        coordinates=WKTElement(f'POINT({35.0844} {-106.6504})', srid=4326),
         state="New Mexico",
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
@@ -82,15 +82,26 @@ def seed_data():
         user_username=user3.username,
         title="Eiffel Tower",
         description="Tall and pointy!",
-        coordinates=WKTElement(f'POINT({48.8584} {2.2945})'),
+        coordinates=WKTElement(f'POINT({48.8584} {2.2945})', srid=4326),
         state="Ile-de-France",
         country="France",
         image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
     )
 
+    experience4 = Experience(
+        user_username=user3.username,
+        title="Great Wall of China",
+        description="A giant wall!",
+        coordinates=WKTElement(f'POINT({40.68} {117.23})', srid=4326),
+        state="Hebei",
+        country="China",
+        image="https://osucapstone.blob.core.windows.net/images/Great-Wall-of-China-1-962246090.jpg",
+    )
+
     db.session.add(experience1)
     db.session.add(experience2)
     db.session.add(experience3)
+    db.session.add(experience4)
 
     db.session.commit()
 

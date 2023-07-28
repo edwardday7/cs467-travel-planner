@@ -8,47 +8,17 @@ Experiences
 {% include 'navbar.html' %}
 <body>
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-lg-9 mx-auto">
-        <form action="/experiences" method="get" class="mb-4">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <div class="input-group">
-                <input type="search" class="form-control" id="search-input" name="q" placeholder="Enter an experience or description" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-            <div class="col-md-1 mb-3 me-4">
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sort
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="/experiences?sort=highest_rating">Highest Rating</a>
-                  <a class="dropdown-item" href="/experiences?sort=lowest_rating">Lowest Rating</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <a href="/experiences" class="btn btn-danger">Clear Search</a>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-md-4">
-        <div style="height: 80vh; overflow-y: auto;">
+        <div style="height: 100vh; overflow-y: auto;">
           {% for experience in experiences %}
           <a href="{{ url_for('experience_detail', experience_id=experience.id) }}">
             <div class="card mb-4 grow">
               <div class="card-body">
                 <h5 class="card-title">{{ experience.title }}</h5>
-                <p class="card-text">Average rating: {{ experience.average_rating|round(1) }}</p>
+                <p class="card-text">Average rating: {% if experience.average_rating %}{{ experience.average_rating|round(1) }}{% else %}Not yet rated{% endif %}</p>
                 <p class="card-text">{{ experience.description }}</p>
               </div>
             </div>
@@ -56,13 +26,80 @@ Experiences
           {% endfor %}
         </div>
       </div>
-      <div class="col-md-8">    
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <h5 class="card-header">Search</h5>
+          <div class="ms-3 me-3">
+            <form id="locationForm">
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mt-3">
+                    <input type="search" class="form-control" id="location" name="locate-address" placeholder="Search for an address to populate latitude and longitude" aria-label="LocateAddress">
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Find Location</button>
+                </div>
+              </div>
+            </form>
+            <form action="/experiences" method="get" class="mb-4">
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mt-3">
+                    <input type="search" class="form-control" id="search-input" name="keyword" placeholder="Experience name or description" aria-label="Search">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  <input type="search" class="form-control" id="latitude" name="latitude" placeholder="Latitude" aria-label="Latitude">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  <input type="search" class="form-control" id="longitude" name="longitude" placeholder="Longitude" aria-label="Longitude">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input-group mb-3 mt-2">
+                    <input type="text" class="form-control" aria-label="Search radius" placeholder="Search radius" name="radius">
+                    <span class="input-group-text">miles</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-start">
+                <div class="col-md-1 me-4">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Sort
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="/experiences?sort=highest_rating">Highest Rating</a>
+                      <a class="dropdown-item" href="/experiences?sort=lowest_rating">Lowest Rating</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <a href="/experiences" class="btn btn-danger">Clear Search</a>
+                </div>
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div id="map" style="width: 100%; height: 50vh;"></div>
       </div>
     </div>
   </div> 
 </body>
 
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script>
   mapboxgl.accessToken = '{{ mapbox_token }}';
   var map = new mapboxgl.Map({
@@ -75,13 +112,41 @@ Experiences
   var experiences = {{ experiences|tojson|safe }};
 
   experiences.forEach(function(experience) {
-    var coordinates = experience.coordinates.coordinates.reverse();
+    var coordinates = experience.coordinates.coordinates;
 
     new mapboxgl.Marker()
       .setLngLat(coordinates)
       .setPopup(new mapboxgl.Popup().setHTML("<h3>" + experience.title + "</h3><p>" + experience.description + "</p><button onclick=\"window.location.href='/experience/" + experience.id + "'\" class='btn btn-primary'>View Experience</button>"))
       .addTo(map);
   });
+
+  var locationForm = document.getElementById('locationForm');
+  var locationInput = document.getElementById('location');
+  var latitudeInput = document.getElementById('latitude');
+  var longitudeInput = document.getElementById('longitude');
+
+  // Function to display latitude and longitude when form is submitted
+  locationForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var query = locationInput.value;
+
+      // Use Nominatim geocoding service to convert user's search query to latitude and longitude
+      var geocoder = L.Control.Geocoder.nominatim();
+      geocoder.geocode(query, function(results) {
+        if (results.length > 0) {
+          var latlng = results[0].center;
+          var lat = latlng.lat;
+          var lng = latlng.lng;
+
+          latitudeInput.value = lat;
+          longitudeInput.value = lng;
+
+        } else {
+          alert('Location not found. Please try another search term.');
+        }
+      });
+    });
+
 </script>
 
 
