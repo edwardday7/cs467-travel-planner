@@ -88,9 +88,20 @@ def seed_data():
         image="https://osucapstone.blob.core.windows.net/images/Eiffel-Tower-Paris-France-2-900045411.jpg",
     )
 
+    experience4 = Experience(
+        user_username=user3.username,
+        title="Great Wall of China",
+        description="A giant wall!",
+        coordinates=WKTElement(f'POINT({40.68} {117.23})', srid=4326),
+        state="Hebei",
+        country="China",
+        image="https://osucapstone.blob.core.windows.net/images/Great-Wall-of-China-1-962246090.jpg",
+    )
+
     db.session.add(experience1)
     db.session.add(experience2)
     db.session.add(experience3)
+    db.session.add(experience4)
 
     db.session.commit()
 
