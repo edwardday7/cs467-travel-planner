@@ -14,7 +14,7 @@ class Experience(db.Model):
     user_username = db.Column(db.String(255), db.ForeignKey('user.username'), nullable=False)
     title = db.Column(db.String(255))
     description = db.Column(db.Text)
-    coordinates = db.Column(Geometry('POINT'))
+    coordinates = db.Column(Geometry(geometry_type='POINT', srid=4326))
     state = db.Column(db.String(100))
     country = db.Column(db.String(100))
     image = db.Column(db.String(255))
