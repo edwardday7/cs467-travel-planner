@@ -1,0 +1,33 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+    Trips
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="container" style="margin-top: 40px;">
+        <div>
+            <div>
+                <a href="/trips/{{ trip_id }}/add/experience" style="color: #2d8cf0; margin-left: 20px"><i class="fa fa-plus"></i>Add New
+                    Experience for the trip</a>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            {% for experience in experiences %}
+                <div class="col-sm-4">
+                    <a href="{{ url_for('experience_detail', experience_id=experience["experience_id"]) }}">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ experience["title"] }}</h5>
+                                <p class="card-text">{{ experience["description"] }}</p>
+                                <p class="card-text">Average Rating : {{ experience["rating"] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

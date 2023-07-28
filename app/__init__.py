@@ -8,5 +8,5 @@ with app.app_context():
     # Seed some test data
     seed_data()
 
-from .routes import auth, routes, experiences, rates
+from .routes import auth, routes, experiences, rates, trips
 
