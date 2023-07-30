@@ -24,6 +24,8 @@ def experiences():
 
     experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating'), func.ST_AsGeoJSON(Experience.coordinates).label('coordinates'))\
         .outerjoin(Rating, Experience.id == Rating.experience_id).group_by(Experience.id)
+    
+    search_state = request.args.get('state')
 
     if search_keyword:
         experiences = experiences.filter(or_(Experience.title.contains(search_keyword), Experience.description.contains(search_keyword)))
@@ -39,6 +41,9 @@ def experiences():
 
         # If the experience is within our radius
         experiences = experiences.filter(distance <= search_radius_meters)
+
+    if search_state:
+        experiences = experiences.filter(Experience.state.ilike(f"%{search_state}%"))  # ilike for case-insensitive match
 
     if sort == 'highest_rating':
         experiences = experiences.order_by(db.desc('average_rating'))
@@ -56,7 +61,7 @@ def experiences():
             'coordinates': json.loads(coordinates),
             'average_rating': average_rating
     })
-
+        
     return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token)
 
 
