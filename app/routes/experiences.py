@@ -13,22 +13,24 @@ from sqlalchemy.sql import func, text
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
-    
     mapbox_token = os.environ.get("MAPBOX_TOKEN")
     search_keyword = request.args.get('keyword')
     search_radius = request.args.get('radius')
     search_latitude = request.args.get('latitude')
     search_longitude = request.args.get('longitude')
+    search_state = request.args.get('state')
+    search_star = request.args.get('star')
 
     sort = request.args.get('sort')
 
     experiences = db.session.query(Experience, func.avg(Rating.rating).label('average_rating'), func.ST_AsGeoJSON(Experience.coordinates).label('coordinates'))\
         .outerjoin(Rating, Experience.id == Rating.experience_id).group_by(Experience.id)
-    
-    search_state = request.args.get('state')
 
     if search_keyword:
         experiences = experiences.filter(or_(Experience.title.contains(search_keyword), Experience.description.contains(search_keyword)))
+
+    if search_state:
+        experiences = experiences.filter(Experience.state.ilike(search_state))
 
     if search_latitude and search_longitude and search_radius:
         search_radius_meters = float(search_radius) * 1609.344  # SRID 4326 uses meters, so we must convert miles to meters
@@ -41,9 +43,10 @@ def experiences():
 
         # If the experience is within our radius
         experiences = experiences.filter(distance <= search_radius_meters)
-
-    if search_state:
-        experiences = experiences.filter(Experience.state.ilike(f"%{search_state}%"))  # ilike for case-insensitive match
+    
+    if search_star:
+        search_star = int(search_star)
+        experiences = experiences.having(db.func.floor(db.func.avg(Rating.rating)) == search_star)
 
     if sort == 'highest_rating':
         experiences = experiences.order_by(db.desc('average_rating'))
@@ -63,6 +66,7 @@ def experiences():
     })
         
     return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token)
+
 
 
 @app.route('/experience/<int:experience_id>', methods=['GET'])
