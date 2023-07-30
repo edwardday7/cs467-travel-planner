@@ -68,7 +68,7 @@ def experiences():
         search_star = int(search_star)
         experiences = experiences.having(db.func.floor(db.func.avg(Rating.rating)) == search_star)
 
-    if sort == 'highest_rating':
+    if sort == 'highest_rating' or sort is None:
         experiences = experiences.order_by(db.desc('average_rating'))
     elif sort == 'lowest_rating':
         experiences = experiences.order_by('average_rating')

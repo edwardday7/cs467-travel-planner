@@ -40,6 +40,9 @@ Experience Details
     <div class="row justify-content-center">
       <div class="col-lg-6 mx-auto">
         <div class="card mb-4">
+        <div class="card-header">
+            Information
+        </div>
           <div class="card-body">
             <h5 class="card-title">{{ experience.title }}</h5>
             <p class="card-text">{{ experience.description }}</p>
@@ -52,22 +55,28 @@ Experience Details
       </div>
   
       <div class="col-lg-6">
-        <h3>Nearby Experiences</h3>
-        <ul>
+        <div class="card mb-4">
+            <div class="card-header mb-2">
+                Nearby Experiences
+            </div>
             {% for nearby_experience in nearby_experiences %}
-                <li>
-                    <a href="{{ url_for('experience_detail', experience_id=nearby_experience.id) }}">
-                        {{ nearby_experience.title }}
-                    </a>
-                </li>
+            <a href="{{ url_for('experience_detail', experience_id=nearby_experience.id) }}" style="text-decoration: none; color: inherit;">
+                <div class="card mb-2 grow card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ nearby_experience.title }}</h5>
+                    </div>
+                </div>
+            </a>
+            {% else %}
+            <div class="card-body">
+                <p class="card-text">No nearby experiences found.</p>
+            </div>
             {% endfor %}
-        </ul>
-    </div>
-    
+        </div>
+    </div>     
     </div>
   </div>
 </body>
-
 
 <style>
   body {
@@ -101,6 +110,22 @@ Experience Details
   .banner-content h2 {
     font-size: 2em;
   }
+
+  .grow {
+  transition: transform 0.1s;
+}
+
+.grow:hover {
+  transform: scale(1.03);
+}
+
+.card-custom {
+    background-color: #a0d2eb;
+    border-radius: 15px;
+    width: 95%;
+    margin: auto;
+}
+
 </style>
 
 {% endblock %}

@@ -21,6 +21,7 @@ class Experience(db.Model):
     image = db.Column(db.String(255))
     time_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+    #used to get nearby experiences on experience details pages
     def get_nearby_experiences(self, distance_in_miles=50):
         distance_in_meters = distance_in_miles * 1609.34
         experiences = Experience.query.all()
