@@ -67,12 +67,12 @@ def experiences():
         
     return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token)
 
-
-
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):
     experience = Experience.query.get_or_404(experience_id)
-    return render_template('experience_detail.html', experience=experience, to_shape=to_shape)
+    ratings = Rating.query.filter_by(experience_id=experience_id).all()
+    average_rating = round(sum([rating.rating for rating in ratings]) / len(ratings), 1) if ratings else "No rating"
+    return render_template('experience_detail.html', experience=experience, average_rating=average_rating, to_shape=to_shape)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
 @jwt_required()
