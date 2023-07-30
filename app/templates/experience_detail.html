@@ -21,14 +21,14 @@ Experience Details
 
     <div class="row text-center my-4">
       <div class="col-lg-4">
-        <button class="btn btn-primary">
+        <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination={{ to_shape(experience.coordinates).x }},{{ to_shape(experience.coordinates).y }}" target="_blank">
           <i class="fas fa-compass"></i> Directions
-        </button>
+        </a>          
       </div>
       <div class="col-lg-4">
-        <button class="btn btn-primary">
+        <a class="btn btn-primary" href="{{ url_for('rate_experience', experience_id=experience.id) }}">
           <i class="fas fa-star"></i> Rate Experience
-        </button>
+        </a>        
       </div>
       <div class="col-lg-4">
         <button class="btn btn-primary">
@@ -56,6 +56,9 @@ Experience Details
 
 
 <style>
+  body {
+    background-color: #CCCCFF;
+  }
   .banner {
     width: 100%;
     height: 42.5vh;

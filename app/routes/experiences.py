@@ -1,6 +1,6 @@
 import json
 import uuid
-from flask import make_response, redirect, render_template, request
+from flask import make_response, redirect, render_template, request, url_for
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from geoalchemy2 import WKTElement
 from app import app, db, container_client
@@ -94,6 +94,6 @@ def create_experience():
         db.session.commit()
 
         return redirect('/')
-    
+
 def upload_file(image):
     return container_client.upload_blob(image.filename + str(uuid.uuid4()), image)
