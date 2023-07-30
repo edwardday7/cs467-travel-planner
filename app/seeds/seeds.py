@@ -68,6 +68,7 @@ def seed_data():
         country="United States",
         image="https://osucapstone.blob.core.windows.net/images/kennedy-space-center-florida_18000_xl-2795190506.jpg",
     )
+
     experience2 = Experience(
         user_username=user2.username,
         title="Balloon Fiesta",
@@ -98,10 +99,34 @@ def seed_data():
         image="https://osucapstone.blob.core.windows.net/images/Great-Wall-of-China-1-962246090.jpg",
     )
 
+    experience5 = Experience(
+        user_username=user3.username,
+        title="National Museum of Nuclear Science & History",
+        description="My geiger counter is off the charts!",
+        coordinates=WKTElement(f'POINT({35.065985} {-106.533892})', srid=4326),
+        state="New Mexico",
+        country="United States",
+        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
+    )
+
+    experience6 = Experience(
+        user_username=user3.username,
+        title="Sandia Peak Tramway",
+        description="its a box, on a cable... on a mountain..",
+        coordinates=WKTElement(f'POINT({35.1877} {-106.4743})', srid=4326),
+        state="New Mexico",
+        country="United States",
+        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
+    )
+
     db.session.add(experience1)
     db.session.add(experience2)
     db.session.add(experience3)
     db.session.add(experience4)
+
+    #needed to add these to get some nearby experiences!
+    db.session.add(experience5)
+    db.session.add(experience6)
 
     db.session.commit()
 
@@ -161,7 +186,7 @@ def seed_data():
     rating3 = Rating(
         username=user1.username,
         experience_id=experience2.id,
-        rating=4.0
+        rating=5.0
     )
     rating4 = Rating(
         username=user3.username,
@@ -171,7 +196,7 @@ def seed_data():
     rating5 = Rating(
         username=user2.username,
         experience_id=experience3.id,
-        rating=5
+        rating=4.4
     )
 
     db.session.add(rating1)
