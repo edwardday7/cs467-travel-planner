@@ -9,27 +9,7 @@ from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_, func
 from geoalchemy2.shape import to_shape
 import os
-
 from sqlalchemy.sql import func, text
-
-def get_nearby_experiences(experience, radius=50):
-    from_unit = 'mile' # mile, km, etc
-    earth_radius = {
-        'km': 6371.0088,
-        'mile': 3958.8,
-    }
-    distance = radius / earth_radius[from_unit]
-    current_point = ST_SetSRID(ST_Point(experience.coordinates.x, experience.coordinates.y), 4326)
-    
-    nearby_experiences = db.session.query(Experience).filter(
-        ST_DWithin(
-            ST_Transform(Experience.coordinates, 4326),
-            ST_Transform(current_point, 4326),
-            distance
-        )
-    ).all()
-
-    return nearby_experiences
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
