@@ -38,7 +38,7 @@ Experience Details
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-lg-12 mx-auto">
+      <div class="col-lg-6 mx-auto">
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">{{ experience.title }}</h5>
@@ -50,6 +50,20 @@ Experience Details
           </div>
         </div>
       </div>
+  
+      <div class="col-lg-6">
+        <h3>Nearby Experiences</h3>
+        <ul>
+            {% for nearby_experience in nearby_experiences %}
+                <li>
+                    <a href="{{ url_for('experience_detail', experience_id=nearby_experience.id) }}">
+                        {{ nearby_experience.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
     </div>
   </div>
 </body>

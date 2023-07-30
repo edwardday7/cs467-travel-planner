@@ -1,5 +1,6 @@
 from app import db
 from geoalchemy2 import Geometry
+from sqlalchemy import func
 
 class User(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
@@ -19,6 +20,22 @@ class Experience(db.Model):
     country = db.Column(db.String(100))
     image = db.Column(db.String(255))
     time_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    def get_nearby_experiences(self, distance_in_miles=50):
+        distance_in_meters = distance_in_miles * 1609.34
+        experiences = Experience.query.all()
+        nearby_experiences = []
+        for experience in experiences:
+            if experience.id == self.id:
+                continue
+            distance = db.session.query(
+                func.ST_Distance_Sphere(
+                    self.coordinates, experience.coordinates
+                )
+            ).scalar()
+            if distance <= distance_in_meters:
+                nearby_experiences.append(experience)
+        return nearby_experiences
 
 class Trip(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

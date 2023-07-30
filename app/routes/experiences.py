@@ -3,6 +3,7 @@ import uuid
 from flask import make_response, redirect, render_template, request, url_for
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from geoalchemy2 import WKTElement
+from geoalchemy2.functions import ST_DWithin, ST_Transform, ST_SetSRID, ST_Point
 from app import app, db, container_client
 from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_, func
@@ -10,6 +11,25 @@ from geoalchemy2.shape import to_shape
 import os
 
 from sqlalchemy.sql import func, text
+
+def get_nearby_experiences(experience, radius=50):
+    from_unit = 'mile' # mile, km, etc
+    earth_radius = {
+        'km': 6371.0088,
+        'mile': 3958.8,
+    }
+    distance = radius / earth_radius[from_unit]
+    current_point = ST_SetSRID(ST_Point(experience.coordinates.x, experience.coordinates.y), 4326)
+    
+    nearby_experiences = db.session.query(Experience).filter(
+        ST_DWithin(
+            ST_Transform(Experience.coordinates, 4326),
+            ST_Transform(current_point, 4326),
+            distance
+        )
+    ).all()
+
+    return nearby_experiences
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
@@ -70,9 +90,10 @@ def experiences():
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):
     experience = Experience.query.get_or_404(experience_id)
+    nearby_experiences = experience.get_nearby_experiences()
     ratings = Rating.query.filter_by(experience_id=experience_id).all()
     average_rating = round(sum([rating.rating for rating in ratings]) / len(ratings), 1) if ratings else "No rating"
-    return render_template('experience_detail.html', experience=experience, average_rating=average_rating, to_shape=to_shape)
+    return render_template('experience_detail.html', experience=experience, average_rating=average_rating, nearby_experiences=nearby_experiences, to_shape=to_shape)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
 @jwt_required()

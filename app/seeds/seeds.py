@@ -98,10 +98,21 @@ def seed_data():
         image="https://osucapstone.blob.core.windows.net/images/Great-Wall-of-China-1-962246090.jpg",
     )
 
+    experience5 = Experience(
+        user_username=user3.username,
+        title="National Museum of Nuclear Science & History",
+        description="My geiger counter is off the charts!",
+        coordinates=WKTElement(f'POINT({35.065985} {-106.533892})', srid=4326),
+        state="New Mexico",
+        country="United States",
+        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
+    )
+
     db.session.add(experience1)
     db.session.add(experience2)
     db.session.add(experience3)
     db.session.add(experience4)
+    db.session.add(experience5)
 
     db.session.commit()
 
