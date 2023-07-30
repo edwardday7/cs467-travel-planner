@@ -8,20 +8,85 @@ Experience Details
 {% include 'navbar.html' %}
 <body>
   <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-12 px-0">
+        <div class="banner" style="background-image: url('{{ experience.image }}');">
+          <div class="banner-content">
+            <h1>{{ experience.title }}</h1>
+            <h2>Rating: {{ average_rating }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center my-4">
+      <div class="col-lg-4">
+        <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&origin=Current+Location&destination={{ to_shape(experience.coordinates).x }},{{ to_shape(experience.coordinates).y }}" target="_blank">
+          <i class="fas fa-compass"></i> Directions
+        </a>          
+      </div>
+      <div class="col-lg-4">
+        <a class="btn btn-primary" href="{{ url_for('rate_experience', experience_id=experience.id) }}">
+          <i class="fas fa-star"></i> Rate Experience
+        </a>        
+      </div>
+      <div class="col-lg-4">
+        <button class="btn btn-primary">
+          <i class="far fa-calendar-plus"></i> Add to Trip
+        </button>
+      </div>
+    </div>
+
     <div class="row justify-content-center">
-      <div class="col-lg-9 mx-auto">
+      <div class="col-lg-12 mx-auto">
         <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">{{ experience.title }}</h5>
-                <p class="card-text">{{ experience.description }}</p>
-                <p><strong>Location:</strong> {{ to_shape(experience.coordinates).x }}, {{ to_shape(experience.coordinates).y }}</p>
-                <p><strong>State:</strong> {{ experience.state }}</p>
-                <p><strong>Country:</strong> {{ experience.country }}</p>
-                <p><strong>Time Created:</strong> {{ experience.time_created }}</p>
-            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ experience.title }}</h5>
+            <p class="card-text">{{ experience.description }}</p>
+            <p><strong>Location:</strong> {{ to_shape(experience.coordinates).x }}, {{ to_shape(experience.coordinates).y }}</p>
+            <p><strong>State:</strong> {{ experience.state }}</p>
+            <p><strong>Country:</strong> {{ experience.country }}</p>
+            <p><strong>Time Created:</strong> {{ experience.time_created }}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </body>
+
+
+<style>
+  body {
+    background-color: #CCCCFF;
+  }
+  .banner {
+    width: 100%;
+    height: 42.5vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+  }
+
+  .banner-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: black;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .banner-content h1 {
+    font-size: 2.5em;
+  }
+
+  .banner-content h2 {
+    font-size: 2em;
+  }
+</style>
+
 {% endblock %}
