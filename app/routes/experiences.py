@@ -1,6 +1,8 @@
+from collections import defaultdict
 import json
+import requests
 import uuid
-from flask import make_response, redirect, render_template, request, url_for
+from flask import flash, make_response, redirect, render_template, request, url_for
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from geoalchemy2 import WKTElement
 from geoalchemy2.functions import ST_DWithin, ST_Transform, ST_SetSRID, ST_Point
@@ -9,27 +11,7 @@ from app.models.models import Experience, Rating
 from sqlalchemy import desc, or_, func
 from geoalchemy2.shape import to_shape
 import os
-
 from sqlalchemy.sql import func, text
-
-def get_nearby_experiences(experience, radius=50):
-    from_unit = 'mile' # mile, km, etc
-    earth_radius = {
-        'km': 6371.0088,
-        'mile': 3958.8,
-    }
-    distance = radius / earth_radius[from_unit]
-    current_point = ST_SetSRID(ST_Point(experience.coordinates.x, experience.coordinates.y), 4326)
-    
-    nearby_experiences = db.session.query(Experience).filter(
-        ST_DWithin(
-            ST_Transform(Experience.coordinates, 4326),
-            ST_Transform(current_point, 4326),
-            distance
-        )
-    ).all()
-
-    return nearby_experiences
 
 @app.route('/experiences', methods=['GET'])
 def experiences():
@@ -89,11 +71,56 @@ def experiences():
 
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):
+    open_weather_token= os.environ.get("OPEN_WEATHER_TOKEN")
+
     experience = Experience.query.get_or_404(experience_id)
+
+    latitude = to_shape(experience.coordinates).y
+    longitude = to_shape(experience.coordinates).x
+
+    lon = latitude
+    lat = longitude
+
+    forecast_url = f"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={open_weather_token}"
+    response = requests.get(forecast_url)
+    forecast_data = response.json()
+
+    #error checking
+    if forecast_data.get('cod') != '200' or 'list' not in forecast_data:
+        forecast_data = None
+        daily_averages = None
+    else:
+        daily_temps = defaultdict(list)
+        daily_icons = defaultdict(list)
+        for day_data in forecast_data['list']:
+            date = day_data['dt_txt'][:10]
+            temp_kelvin = day_data['main']['temp']
+            temp_fahrenheit = (temp_kelvin - 273.15) * 9/5 + 32
+            daily_temps[date].append(temp_fahrenheit)
+            daily_icons[date].append(day_data['weather'][0]['icon'])
+
+        def is_numeric(n):
+            try:
+                float(n)
+                return True
+            except ValueError:
+                return False
+
+        daily_averages = {
+            date: {
+                'temp': round(sum(temps)/len(temps), 2) if all(is_numeric(temp) for temp in temps) else 'No data',
+                'icon': max(set(icons), key=icons.count) if icons else 'No data'
+            }
+            for date, temps, icons in zip(daily_temps.keys(), daily_temps.values(), daily_icons.values())
+        }
+
     nearby_experiences = experience.get_nearby_experiences()
     ratings = Rating.query.filter_by(experience_id=experience_id).all()
     average_rating = round(sum([rating.rating for rating in ratings]) / len(ratings), 1) if ratings else "No rating"
-    return render_template('experience_detail.html', experience=experience, average_rating=average_rating, nearby_experiences=nearby_experiences, to_shape=to_shape)
+    
+    return render_template('experience_detail.html', experience=experience, average_rating=average_rating, 
+                           nearby_experiences=nearby_experiences, daily_averages=daily_averages, 
+                           to_shape=to_shape, open_weather_token=open_weather_token)
 
 @app.route('/experiences/new', methods=["GET", "POST"])
 @jwt_required()
