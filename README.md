@@ -30,7 +30,7 @@ After install, set the following environment variables:
 In addition to setting up MySQL, you will also need to set the following environment variable:
 - AZURE_STORAGE_CONNECTION_STRING - Obtain this value from Edward as it's a secret. Allows for photo uploads.
 - MAPBOX_TOKEN - Obtain from Sterling. Mapbox token API key.
-- OPEN_WEATHER_TOKEN" - Obtain from Sterling. Weather API key.
+- OPEN_WEATHER_TOKEN - Obtain from Sterling. Weather API key.
 
 ### Running Locally
 
