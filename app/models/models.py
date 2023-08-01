@@ -45,8 +45,8 @@ class Trip(db.Model):
 
 class TripExperience(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    trip_id = db.Column(db.Integer, db.ForeignKey('trip.id'), nullable=False)
-    experience_id = db.Column(db.Integer, db.ForeignKey('experience.id'), nullable=False)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trip.id', onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
+    experience_id = db.Column(db.Integer, db.ForeignKey('experience.id', onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

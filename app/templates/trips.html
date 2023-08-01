@@ -9,22 +9,47 @@
     <div class="container" style="margin-top: 40px;">
         <div>
             <div>
-                <a href="/trips/new" style="color: #2d8cf0; margin-left: 20px"><i class="fa fa-plus"></i>Add New Trip</a>
+                <a href="/trips/new" style="color: #2d8cf0; margin-left: 20px"><i class="fa fa-plus"></i>Add New
+                    Trip</a>
             </div>
         </div>
         <div class="row" style="margin-top: 20px;">
             {% for trip in trips %}
                 <div class="col-sm-3">
-                    <a href="{{ url_for('trip_detail', trip_id=trip.id) }}">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ trip.trip_name }}</h5>
-                            </div>
+                    <div class="card mb-3">
+                        <div class="card-body"
+                             style="border: 1px solid lightsteelblue; border-radius: 10px; background-color: snow;">
+                            <a href="{{ url_for('trip_detail', trip_id=trip.id) }}">
+                                <h5 class="card-title" style="color: black;">{{ trip.trip_name }}</h5>
+                            </a>
+                            <a class="btn btn-info" style="float: left"
+                               href="{{ url_for('update_trip', trip_id=trip.id) }}">Update</a>
+                            <form method="POST"
+                                  action="{{ url_for('trip_delete', trip_id=trip.id) }}">
+                                <input type="submit" value="Delete" class="btn btn-danger" style="margin-left: 10px;">
+                            </form>
                         </div>
-                    </a>
+                    </div>
+
+
                 </div>
             {% endfor %}
         </div>
     </div>
 
+    <script type="text/javascript">
+        var elems = document.getElementsByClassName('delete_confirmation');
+        var confirmIt = function (e) {
+            if (!confirm('Are you sure?')) e.preventDefault();
+        };
+        for (var i = 0, l = elems.length; i < l; i++) {
+            elems[i].addEventListener('click', confirmIt, false);
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #CCCCFF;
+        }
+    </style>
 {% endblock %}

@@ -1,0 +1,88 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap demo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+<!-- navbar section -->
+{% with current_user=current_user %}
+    {% include 'navbar.html' %}
+{% endwith %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+{% block content %}
+    <!-- Image and text -->
+
+    <style>
+        body {
+            background-color: #CCCCFF;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0;
+            }
+        }
+    </style>
+
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                Add a New Trip
+            </div>
+            <div class="card-body">
+                <form method="post" action="/trips/{{ trip_id }}/update" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ current_user }}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Trip Name</label>
+                        <input type="text" class="form-control" id="trip_name" name="trip_name" value="{{ trip_name }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        body {
+            background-color: #CCCCFF;
+        }
+    </style>
+{% endblock %}

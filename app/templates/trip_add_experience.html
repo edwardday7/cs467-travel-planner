@@ -72,19 +72,26 @@
                     <div class="mb-3">
                         <label for="experience_title" class="form-label">Select Experience</label>
                         <div class="form-group">
-                            <select class="form-control" id="experience_title" name="experience_title">
+                            <select class="form-control" id="experience_title" name="experience_title" required>
                                 {% for exp in experiences %}
                                     <option>{{ exp.title }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="/trips/{{ trip_id }}" class="btn btn-light" style="width: 200px; border: 1px solid black;">Cancel</a>
+                    <button type="submit" class="btn btn-primary"  style="width: 200px; border: 1px solid black;">Save</button>
                 </form>
             </div>
         </div>
 
     </div>
 
+    <style>
+        body {
+            background-color: #CCCCFF;
+        }
+    </style>
 {% endblock %}
+
 
