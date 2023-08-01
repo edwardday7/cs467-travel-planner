@@ -24,9 +24,15 @@ def seed_data():
         password=create_password("password3"),
     )
 
+    user4 = User(
+        username="TestUser4",
+        password=create_password("password4"),
+    )
+
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)
+    db.session.add(user4)
 
     db.session.commit()
 
@@ -110,7 +116,7 @@ def seed_data():
     )
 
     experience6 = Experience(
-        user_username=user3.username,
+        user_username=user4.username,
         title="Sandia Peak Tramway",
         description="its a box, on a cable... on a mountain..",
         coordinates=WKTElement(f'POINT({35.1877} {-106.4743})', srid=4326),

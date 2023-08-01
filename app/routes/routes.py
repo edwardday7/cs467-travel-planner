@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify, request, redirect
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db
 from app.models.models import Trip, User, Experience, Follower, Rating
@@ -15,10 +15,20 @@ def home():
 
     new_exp = db.session.execute(db.select(Experience)
                                          .order_by(Experience.time_created.desc())).scalars()
+    
+    query = db.session.execute(db.select(Follower.follower_username)
+                                   .filter(Follower.user_username == current_user)).scalars()
+    
+    following =[]
+
+    for followers in query:
+        following.append(followers)
+
 
     follower_exp = db.session.execute(db.select(Experience)
                                       .join(Follower, and_(Follower.follower_username == Experience.user_username,
                                                            Follower.user_username == current_user))).scalars()
+
 
     ratings = db.session.execute(db.select(Rating)).scalars()
 
@@ -49,26 +59,29 @@ def home():
                               current_username=current_user,
                               ratings_map=total_ratings_number_of_ratings_map_by_experience_id,
                               rated_users_experience_id_map=rated_users_experience_id_map, 
+                              following =following,
                               to_shape=to_shape)
 
-@app.route('/map/<float:lat>/<long>/<string:name>')
+@app.route('/unfollow/<name>')
 @jwt_required(optional=True)
-def map(lat, long, name):
-    current_user = bool(get_jwt_identity())
-    m = folium.Map()
-    coordinate = (lat, long)
-    folium.Marker(coordinate, popup=name).add_to(m)
-    m.get_root().width = "500px"
-    m.get_root().height = "300px"
-    iframe = m.get_root()._repr_html_()
-    return render_template("map.html", iframe = iframe, current_user = current_user)
+def unfollow(name):
+    current_user = get_jwt_identity()
+    unfollow_user = db.session.query(Follower).filter_by(user_username=current_user, follower_username=name)
+    unfollow_user.delete()
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/follow/<name>')
+@jwt_required(optional=True)
+def follow(name):
+    current_user = get_jwt_identity()
+    follow_user = Follower(user_username=current_user, follower_username=name)
+    db.session.add(follow_user)
+    db.session.commit()
+    return redirect('/')
 
 
 @app.route('/health')
 def health():
     return jsonify({'status': 'ok'}), 200
 
-
-@app.route('/index')
-def index():
-    return render_template('index.html')
