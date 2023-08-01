@@ -271,7 +271,7 @@ Home Page
 
                                                 <div class="buttons px-4 mt-0">
                                                     {% if ((f_exps.id not in rated_users_experience_id_map) or (current_username not in rated_users_experience_id_map[f_exps.id])) %}
-                                                        <a href="/rate/experience/{{ f_exps.id }}" class="a_button">
+                                                        <a href="/rate/experience/{{ f_exps.id }}" class="a_button" style="margin-top: 20px;">
                                                             Rate
                                                         </a>
                                                     {% endif %}
@@ -345,5 +345,4 @@ Home Page
     </script>
 
 {% endblock %}
-
 

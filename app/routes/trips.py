@@ -1,6 +1,9 @@
 import uuid
 from flask import make_response, redirect, render_template, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
+import uuid
+from flask import make_response, redirect, render_template, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app, db, container_client
 from app.models.models import Experience, Rating, Trip, User, Follower, TripExperience
 from sqlalchemy import desc, or_
@@ -16,7 +19,7 @@ def trips():
     return render_template('trips.html', trips=user_trips)
 
 
-@app.route('/trips/new', methods=["GET", "POST"])
+@app.route('/trips/new', methods=["GET", "POST"])   # Create a new trip
 @jwt_required()
 def create_trip():
     if request.method == "GET":
@@ -35,6 +38,25 @@ def create_trip():
         db.session.commit()
 
         return redirect('/trips')
+
+
+@app.route('/trips/<int:trip_id>/update', methods=["GET", "POST"])    # Update existing Trip
+@jwt_required()
+def update_trip(trip_id):
+    if request.method == "GET":
+        current_user = get_jwt_identity()
+        trip = Trip.query.get_or_404(trip_id)
+        trip_name = trip.trip_name
+        return render_template('update_trip.html', current_user=current_user, trip_id=trip_id, trip_name=trip_name)
+    else:
+
+        trip = Trip.query.get_or_404(trip_id)
+        trip_name = request.form.get('trip_name')
+        trip.trip_name = trip_name
+        db.session.add(trip)
+        db.session.commit()
+
+        return redirect(f'/trips')
 
 
 @app.route('/trips/<int:trip_id>', methods=['GET'])
@@ -123,3 +145,22 @@ def trip_add_experience(trip_id):
         db.session.commit()
 
         return redirect(f'/trips/{trip_id}')
+
+
+@app.post('/trips/<int:trip_id>/delete/')
+def trip_delete(trip_id):
+    trip = Trip.query.get_or_404(trip_id)
+    db.session.delete(trip)
+    db.session.commit()
+    return redirect('/trips')
+
+
+@app.post('/trips/<int:trip_id>/experience/<int:experience_id>/delete/')
+def trip_experience_delete(trip_id, experience_id):
+    trip_experience = TripExperience.query.filter(and_
+                                                  ((TripExperience.trip_id == trip_id),
+                                                   (TripExperience.experience_id == experience_id))
+                                                  ).first()
+    db.session.delete(trip_experience)
+    db.session.commit()
+    return redirect(f'/trips/{trip_id}')
