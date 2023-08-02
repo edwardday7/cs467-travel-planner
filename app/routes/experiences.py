@@ -67,7 +67,7 @@ def experiences():
             'average_rating': average_rating
     })
         
-    return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token)
+    return render_template('experiences.html', experiences=experiences_data, mapbox_token=mapbox_token, to_shape=to_shape)
 
 @app.route('/experience/<int:experience_id>', methods=['GET'])
 def experience_detail(experience_id):

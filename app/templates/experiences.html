@@ -136,12 +136,32 @@ Experiences
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script>
+
+  var locationForm = document.getElementById('locationForm');
+  var locationInput = document.getElementById('location');
+  var latitudeInput = document.getElementById('latitude');
+  var longitudeInput = document.getElementById('longitude');
+
   mapboxgl.accessToken = '{{ mapbox_token }}';
+  var clickMarker;
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-74.5, 40],
     zoom: 0.1 // starting zoom
+  });
+
+  map.on('click', (e) => {
+    if (clickMarker) {
+      clickMarker.remove()
+    }
+
+    clickMarker = new mapboxgl.Marker()
+      .setLngLat(e.lngLat)
+      .addTo(map);
+
+    latitudeInput.value = e.lngLat.lat;
+    longitudeInput.value = e.lngLat.lng;
   });
 
   var experiences = {{ experiences|tojson|safe }};
@@ -154,11 +174,6 @@ Experiences
       .setPopup(new mapboxgl.Popup().setHTML("<h3>" + experience.title + "</h3><p>" + experience.description + "</p><button onclick=\"window.location.href='/experience/" + experience.id + "'\" class='btn btn-primary'>View Experience</button>"))
       .addTo(map);
   });
-
-  var locationForm = document.getElementById('locationForm');
-  var locationInput = document.getElementById('location');
-  var latitudeInput = document.getElementById('latitude');
-  var longitudeInput = document.getElementById('longitude');
 
   // Function to display latitude and longitude when form is submitted
   locationForm.addEventListener('submit', function(event) {
