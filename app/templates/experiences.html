@@ -158,7 +158,7 @@ Experiences
 
     clickMarker = new mapboxgl.Marker()
       .setLngLat(e.lngLat)
-      .addTo(map);
+      .addTo(map)
 
     latitudeInput.value = e.lngLat.lat;
     longitudeInput.value = e.lngLat.lng;
@@ -190,6 +190,16 @@ Experiences
 
           latitudeInput.value = lat;
           longitudeInput.value = lng;
+
+          if (clickMarker) {
+            clickMarker.remove()
+          }
+
+          clickMarker = new mapboxgl.Marker()
+            .setLngLat([lng, lat])
+            .setPopup(new mapboxgl.Popup().setHTML("<p>" + locationInput.value + "</p>"))
+            .addTo(map)
+            .togglePopup();
 
         } else {
           alert('Location not found. Please try another search term.');
