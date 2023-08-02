@@ -191,6 +191,16 @@ Experiences
           latitudeInput.value = lat;
           longitudeInput.value = lng;
 
+          if (clickMarker) {
+            clickMarker.remove()
+          }
+
+          clickMarker = new mapboxgl.Marker()
+            .setLngLat([lng, lat])
+            .setPopup(new mapboxgl.Popup().setHTML("<p>" + locationInput.value + "</p>"))
+            .addTo(map)
+            .togglePopup();
+
         } else {
           alert('Location not found. Please try another search term.');
         }
