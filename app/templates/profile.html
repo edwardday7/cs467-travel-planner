@@ -1,0 +1,124 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+<body>
+    <div class="container mt-4">
+        <div class="row">
+        <div class="col-lg-12">
+            <div class="banner" style="background-image: url('../static/vw.jpeg');">
+            <div class="banner-content">
+                <h1>{{ user.username }}</h1>
+                <h3>Member Since: {{ user.time_created }}</h3>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body py-0">
+                <div class="row text-center my-2">
+                    <div class="col-lg-4">
+                        <h4>Followers: {{ followers_count }}</h4>     
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>Following: {{ following_count }}</h4>      
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>Experiences: {{ experiences_count }}</h4>      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+            {% for experience in experiences %}
+                <div class="col-sm-4">
+                    <div class="card mb-4">
+                        <div class="card-body"
+                             style="border: 1px solid lightsteelblue; border-radius: 10px; background-color: snow;">
+                            <a href="{{ url_for('experience_detail', experience_id=experience.id) }}"
+                               style="color: black;">
+                                <h5 class="card-title">{{ experience.title }}</h5>
+                                <p class="card-text">{{ experience.description }}</p>
+                                <p><strong>Time Created:</strong> {{ experience.time_created }}</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+    </div>
+</body>
+    
+<style>
+    body {
+        background-color: #CCCCFF;
+    }
+    .banner {
+        width: 100%;
+        height: 42.5vh;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        margin-top: 20px;
+        overflow: hidden;
+    }
+    
+    .banner-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: black;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .banner-content h1 {
+        font-size: 2.5em;
+    }
+    
+    .banner-content h2 {
+        font-size: 2em;
+    }
+    
+    .grow {
+    transition: transform 0.1s;
+    }
+    .forecast-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        list-style: none;
+    }
+    
+    .forecast-list li {
+        flex-basis: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .grow:hover {
+    transform: scale(1.03);
+    }
+    
+    .card-custom {
+        background-color: #a0d2eb;
+        border-radius: 15px;
+        width: 95%;
+        margin: auto;
+    }
+    
+</style>
+{% endblock %}
