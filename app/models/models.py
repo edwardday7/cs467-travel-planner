@@ -5,6 +5,7 @@ from sqlalchemy import func
 class User(db.Model):
     username = db.Column(db.String(255), primary_key=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    time_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 class Follower(db.Model):
     user_username = db.Column(db.String(255), db.ForeignKey('user.username'), primary_key=True)
