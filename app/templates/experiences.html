@@ -40,7 +40,8 @@ Experiences
               <div class="row">
                 <div class="col">
                   <div class="input-group mt-3">
-                    <input type="search" class="form-control" id="location" name="locate-address" placeholder="Search for an address to populate latitude and longitude" aria-label="LocateAddress">
+                    <input type="search" list="addressSuggestions" class="form-control" id="location" name="locate-address" placeholder="Search for an address to populate latitude and longitude" aria-label="LocateAddress">
+                    <datalist id="addressSuggestions"></datalist>
                   </div>
                 </div>
               </div>
@@ -207,6 +208,41 @@ Experiences
       });
     });
 
+    let inputChangedByUser = true; // Flag to track user input
+
+    function handleAutocomplete() {
+        if (!inputChangedByUser) {
+            // If the value was changed by selecting an option, do not repopulate the datalist
+            return;
+            }
+
+      const query = locationInput.value;
+
+      // Use Nominatim geocoding service to get address suggestions
+      var geocoder = L.Control.Geocoder.nominatim();
+      geocoder.geocode(query, function (results) {
+        if (results.length > 0) {
+          // Clear the previous suggestions
+          document.getElementById('addressSuggestions').innerHTML = '';
+
+          // Process the suggestions and add them to the datalist
+          results.forEach((result) => {
+            var option = document.createElement('option');
+            option.value = result.name;
+            document.getElementById("addressSuggestions").appendChild(option);
+          });
+
+          locationInput.focus()
+        }
+      });
+    }
+
+      // Listen for input changes in the search box
+locationInput.addEventListener('input', function (event) {
+  handleAutocomplete();
+  inputChangedByUser = true; // Set the flag to true for user input
+});
+
 </script>
 
 <style>
@@ -220,5 +256,10 @@ Experiences
 .grow:hover {
   transform: scale(1.03);
 }
+
+input:focus + datalist {
+  display: block;
+}
+
 </style>
 {% endblock %}

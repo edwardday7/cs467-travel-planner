@@ -112,7 +112,7 @@ def seed_data():
         coordinates=WKTElement(f'POINT({35.065985} {-106.533892})', srid=4326),
         state="New Mexico",
         country="United States",
-        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
+        image="https://osucapstone.blob.core.windows.net/images/nmnsh.jpg",
     )
 
     experience6 = Experience(
@@ -122,7 +122,7 @@ def seed_data():
         coordinates=WKTElement(f'POINT({35.1877} {-106.4743})', srid=4326),
         state="New Mexico",
         country="United States",
-        image="https://osucapstone.blob.core.windows.net/images/L37A1375-2579585453.jpg",
+        image="https://osucapstone.blob.core.windows.net/images/BlogTram_b3825c35-8922-4b06-9e02-0abba27b62a0.jpg",
     )
 
     db.session.add(experience1)
