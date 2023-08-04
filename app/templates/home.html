@@ -70,7 +70,7 @@ Home Page
     }
 
     .card {
-        width: 70%;
+        {#width: 70%;#}
         flex: 1;
     }
 
@@ -87,7 +87,9 @@ Home Page
 .page_tabs{
     display: flex;
     justify-content: center;
-
+    height: 80vh;
+    overflow-y: auto;
+    background-color: white;
 }
 .tab-btn{
     width: 250px;
@@ -105,17 +107,16 @@ Home Page
     z-index: 1;
 }
 .tab {
-    width: 500px;
+    width: 60%;
 }
 
 #follower_div{
-
-    background: #CCCCFF;
+    background: white;
     display: block;
 }
 #new_div{
-   
-    background: #CCCCFF;
+
+    background: white;
     display: none;
 }
 .tab{
@@ -132,7 +133,7 @@ Home Page
 
 .a_button {
     display: block;
-    width: 250px;
+    width: 200px;
     height: 35px;
     background: #4E9CAF;
     padding-top: 5px;
@@ -142,6 +143,8 @@ Home Page
     font-weight: bold;
     line-height: 25px;
     text-decoration: none !important;
+
+    margin: 0 auto;
 }
 
 {#.a_button a:hover{#}
@@ -164,13 +167,16 @@ Home Page
     font-size: 30px;
     font-weight: 300;
     color: #FFD600;
-    cursor: pointer
+    cursor: pointer;
+
+
 }
 
 .rating>label::before {
     content: "\2605";
     position: absolute;
-    opacity: 0
+    opacity: 0;
+
 }
 
 {#.rating>label:hover:before,#}
@@ -179,7 +185,8 @@ Home Page
 {#}#}
 
 .rating>input:checked~label:before {
-    opacity: 1
+    opacity: 1;
+
 }
 
 .card-img-top {
@@ -222,6 +229,21 @@ Home Page
         width:100%;
         flex: 1;
     }
+
+    .a_button {
+    display: block;
+    width: 200px;
+    height: 35px;
+    background: #4E9CAF;
+    padding-top: 5px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    text-decoration: none !important;
+
+}
 }
 </style>
 
@@ -249,7 +271,7 @@ Home Page
 
 
 
-                                              <h6 class="card-subtitle mb-2 text-muted">Created by: {{ f_exps.user_username }}  
+                                              <h6 class="card-subtitle mb-2 text-muted">Created by: {{ f_exps.user_username }}
                                                 <a class="icon-link" href="unfollow/{{f_exps.user_username}}" style="--bs-link-hover-color-rgb: 169, 169, 169;">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-patch-minus" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
@@ -257,10 +279,10 @@ Home Page
                                                 </svg>
                                                 </a>
                                               </h6>
-                                             
+
                                               <p class="card-text">{{f_exps.description}}</p>
                                               <a href="https://www.google.com/maps/search/?api=1&query={{ to_shape(f_exps.coordinates).x }},{{ to_shape(f_exps.coordinates).y }}" class="card-link">Google Maps</a>
-                                            
+
                                               {% if f_exps.id in ratings_map %}
                                                   <p style="margin-bottom: 0;">Number of Ratings: {{ ratings_map[f_exps.id][1] }}</p>
                                                   <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: {% if ratings_map[f_exps.id][1] > 0 %}
@@ -289,11 +311,11 @@ Home Page
                                                   <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: -</p>
                                               {% endif %}
 
-                                    
+
 
                                                 <div class="buttons px-4 mt-0">
                                                     {% if ((f_exps.id not in rated_users_experience_id_map) or (current_username not in rated_users_experience_id_map[f_exps.id])) %}
-                                                        <a href="/rate/experience/{{ f_exps.id }}" class="a_button" style="margin-top: 20px;">
+                                                        <a href="/rate/experience/{{ f_exps.id }}" class="a_button" style="margin-top: 20px; align-items: center;">
                                                             Rate
                                                         </a>
                                                     {% endif %}
@@ -327,12 +349,12 @@ Home Page
                                                 </a>
                                                 {% endif %}
                                               </h6>
-                                           
+
 
                                               <p class="card-text">{{experience.description}}</p>
-                                            
+
                                               <a href="https://www.google.com/maps/search/?api=1&query={{ to_shape(experience.coordinates).x }},{{ to_shape(experience.coordinates).y }}" class="card-link">Google Maps</a>
-                                              
+
                                               {% if experience.id in ratings_map %}
                                               <p style="margin-bottom: 0;">Number of Ratings: {{ ratings_map[experience.id][1] }}</p>
                                               <p style="margin-top: 5px; margin-bottom: 0;">Average Rating: {% if ratings_map[experience.id][1] > 0 %}
@@ -364,12 +386,12 @@ Home Page
 
                                             <div class="buttons px-4 mt-0">
                                                 {% if ((experience.id not in rated_users_experience_id_map) or (current_username not in rated_users_experience_id_map[experience.id])) %}
-                                                    <a href="/rate/experience/{{ experience.id }}" class="a_button" style="margin-top: 20px;">
+                                                    <a href="/rate/experience/{{ experience.id }}" class="a_button" style="margin-top: 20px; ">
                                                         Rate
                                                     </a>
                                                 {% endif %}
                                             </div>
-                                            
+
                                             </div>
                                         </div>
                         {% endfor %}
@@ -421,4 +443,3 @@ Home Page
     </script>
 
 {% endblock %}
-
