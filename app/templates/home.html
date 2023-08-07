@@ -30,6 +30,11 @@ Home Page
 <style>
     body {background-color: #CCCCFF;}
 
+    a {
+        text-decoration: none; 
+        color: #121111;   
+    }
+
     *{
         margin: 0px;
         padding: 0px;
@@ -51,11 +56,13 @@ Home Page
     }
 
     .vacation-img {
+        
         flex: 1;
 
     }
 
     .vacation-img img {
+        border-radius: 25px;
         max-width: 100%;
         height: auto;
         display: block;
@@ -266,10 +273,9 @@ Home Page
                                         <div class="card" >
                                             <img class="card-img-top" src="{{f_exps.image}}" alt="Card image cap">
                                             <div class="card-body">
+                                              <a href="{{ url_for('experience_detail', experience_id=f_exps.id) }}">
                                               <h5 class="card-title">{{ f_exps.title }}</h5>
-
-
-
+                                              </a>
 
                                               <h6 class="card-subtitle mb-2 text-muted">Created by: {{ f_exps.user_username }}
                                                 <a class="icon-link" href="unfollow/{{f_exps.user_username}}" style="--bs-link-hover-color-rgb: 169, 169, 169;">
@@ -331,7 +337,9 @@ Home Page
                                         <div class="card" >
                                             <img class="card-img-top" src="{{experience.image}}" alt="Card image cap">
                                             <div class="card-body">
-                                              <h5 class="card-title">{{ experience.title }}</h5>
+                                              <a href="{{ url_for('experience_detail', experience_id=experience.id) }}">
+                                                <h5 class="card-title">{{ experience.title }}</h5>
+                                              </a>
                                               <h6 class="card-subtitle mb-2 text-muted">Created by: {{ experience.user_username }}
                                                 {% if experience.user_username in following %}
                                                 <a class="icon-link" href="unfollow/{{experience.user_username}}" style="--bs-link-hover-color-rgb: 169, 169, 169;">
